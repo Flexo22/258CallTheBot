@@ -8,3 +8,6 @@ cache:
 node_js:
   - v5
   - v4
+  - v6
+
+
