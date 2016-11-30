@@ -2,16 +2,14 @@
 
 let Wit = null;
 let interactive = null;
-let Config = null;
+const Config = require('./const.js');
 try {
   // if running from repo
   Wit = require('../').Wit;
   interactive = require('../').interactive;
-  Config = require('./const.js');
 } catch (e) {
   Wit = require('node-wit').Wit;
   interactive = require('node-wit').interactive;
-  Config = require('./const.js');
 }
 
 // Quickstart example
@@ -81,9 +79,8 @@ const actions = {
     }
 }
 
-const getWit = () => {
-    return new Wit(Config.WIT_TOKEN, actions);
-};
-interactive(getWit);
+const accessToken = Config.WIT_TOKEN;
 
-exports.getWit = getWit;
+const client = new Wit({accessToken, actions});
+
+interactive(client);
