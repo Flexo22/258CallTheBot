@@ -2,16 +2,17 @@
 
 let Wit = null;
 let interactive = null;
+let Config = null;
 try {
   // if running from repo
   Wit = require('../').Wit;
   interactive = require('../').interactive;
+  Config = require('./const.js');
 } catch (e) {
   Wit = require('node-wit').Wit;
   interactive = require('node-wit').interactive;
+  Config = require('./const.js');
 }
-
-const accessToken = "YTTNUWDR3IXFVAOPWPCRHLKZWQHT2RI5";
 
 // Quickstart example
 // See https://wit.ai/ar7hur/quickstart
@@ -80,5 +81,9 @@ const actions = {
     }
 }
 
-const client = new Wit({accessToken, actions});
-interactive(client);
+const getWit = () => {
+    return new Wit(Config.WIT_TOKEN, actions);
+};
+interactive(getWit);
+
+exports.getWit = getWit;
