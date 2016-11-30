@@ -11,11 +11,6 @@ const minimumConfidence = 0.5;
 
 describe("bot.js unit tests", () => {
 
-  it("should create bot", () => {
-    const client = bot.getWit();
-    expect(client).to.not.be.null;
-  });
-
  it("should return explanation for \"sex\"", function(done) {
 
   const problem = "What is Sex?";
