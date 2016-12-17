@@ -140,6 +140,7 @@ const actions = {
             var text = "This chat needs a therapist: " + threadID.toString();
             // meanwhile hardcoded Jeany Doe
             var userID = "100014478432070";
+
             fbMessage(userID, text);
             //context.information = "A therapist is informed";
             return resolve(context);
