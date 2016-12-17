@@ -7,6 +7,8 @@ const crypto = require("crypto");
 const express = require("express");
 const fetch = require("node-fetch");
 const request = require("request");
+const threadID = require("threads").get(id);
+
 
 const FB = require("./facebook.js");
 const Config = require("./const.js");
@@ -217,8 +219,7 @@ app.get("/webhook", (req, res) => {
 app.post("/webhook", (req, res) => {
   // Parsing the Messenger API response
   const messaging = FB.getFirstMessagingEntry(req.body);
-  const threadID = request("threads").get(id);
-  if (messaging && messaging.message) {
+    if (messaging && messaging.message) {
 
     // Yay! We got a new message!
 
