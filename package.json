@@ -9,19 +9,20 @@
     "test": "mocha --reporter spec __tests__/"
   },
   "dependencies": {
-    "body-parser": "^1.15.0",
-    "express": "^4.13.4",
-    "node-wit": "^4.0.0",
-    "node-uuid": "^1.4.7",
-    "request": "^2.72.0",
     "babel-core": "^6.0.0",
     "babel-jest": "^6.0.1",
     "babel-polyfill": "^6.1.4",
     "bl": "^1.0.0",
+    "body-parser": "^1.15.0",
     "chai": "^3.5.0",
-    "mocha": "^3.1.2",
     "crypto": "^0.0.3",
-    "node-fetch": "^1.6.3"
+    "express": "^4.13.4",
+    "mocha": "^3.1.2",
+    "node-fetch": "^1.6.3",
+    "node-uuid": "^1.4.7",
+    "node-wit": "^4.0.0",
+    "request": "^2.72.0",
+    "threads": "^0.7.2"
   },
   "repository": {
     "type": "git",
