@@ -144,7 +144,7 @@ const actions = {
             var userID = "100014478432070";
             fbMessage(userID, text);
             //context.information = "A therapist is informed";
-            return resolve(context);
+            return resolve();
         });
     },
 
