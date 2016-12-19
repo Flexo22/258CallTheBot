@@ -82,21 +82,57 @@ const fbMessage = (id, text) => {
   });
 };
 
-const fbGetThreads = () => {
-    const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    return fetch("https://graph.facebook.com/me/threads?fields=senders,link&" + qs, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'},
-    })
-    .then((rsp) => rsp.json())
-    .then((json) => {
-        if (json.error && json.error.message) {
-            throw new Error(json.error.message);
-        }
-        return json;
-    });
-};
+function notifyTherapist() {
+    if (sender) {
 
+        fbMessage(sender, "begin");
+        const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
+
+        const threads = fetch(queryUrl, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(function (res) {
+                return res.json();
+            }).then(function (json) {
+                if (json.error && json.error.message) {
+                    throw new Error(json.error.message);
+                }
+                return json;
+            });
+        fbMessage(sender, "fetch is done");
+
+        const body = JSON.parse(threads);
+        fbMessage(sender, body);
+        const datas = body.data;
+        var senderId = null;
+        for (var i in datas) {
+            const data = datas[i].senders.data;
+            for (var j in data) {
+                if (data[j].id === sender) {
+                    senderId = stringify(data[i].senders.link);
+                    break;
+                }
+            }
+            if (senderId) {
+                break;
+            }
+        }
+
+        if (senderId) {
+
+            var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
+
+            var userID = sender;
+            // meanwhile hardcoded Jeany Doe
+            //var userID = "100014478432070";
+            fbMessage(userID, chatMessage);
+            fbMessage("100014478432070", "hey Jeany, what up?");
+            //context.information = "A therapist is informed";
+            //notifyTherapist(context,entities);
+        }
+    }
+}
 
 // ----------------------------------------------------------------------------
 // Wit.ai bot specific code
@@ -149,27 +185,12 @@ const actions = {
       return Promise.resolve();
     }
   },
-/*
-    //notifyTherapist bot executes
-    notifyTherapist({context,entities}) {
-        return new Promise(function(resolve,reject) {
 
-            var text = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + FB.fbReq.threadid.toString();
-
-            var userID = FB.fbReq.id.toString();
-            // meanwhile hardcoded Jeany Doe
-            //var userID = "100014478432070";
-            fbMessage(userID, text);
-            //context.information = "A therapist is informed";
-
-            return resolve(context);
-        });
-    },
-*/
     // getInformation bot executes
     getInformation({context,entities}) {
         return new Promise(function(resolve,reject){
 
+            notifyTherapist();
             var searchQuery = firstEntityValue(entities,"search_query");
             if (searchQuery){
                 var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=1&prop=extracts&exintro&explaintext&exsentences=5&exlimit=max&gsrsearch=" + searchQuery;
@@ -189,42 +210,6 @@ const actions = {
                             else {
                                 context.information = "May refer to: Sorry I didn't get that.";
                             }
-
-                            if (sender) {
-
-                                //fbMessage(sender, JSON.parse(fbGetThreads()));
-                                /*
-                                const body = JSON.parse(fbGetThreads());
-                                const datas = body.data;
-                                var senderId = null;
-                                for (var i in datas) {
-                                    const data = datas[i].senders.data;
-                                    for (var j in data) {
-                                        if (data[j].id === sender) {
-                                            senderId = stringify(data[i].senders.link);
-                                            break;
-                                        }
-                                    }
-                                    if (senderId) {
-                                        break;
-                                    }
-                                }
-
-                                if (senderId) {
-
-                                    var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
-
-                                    var userID = sender;
-                                    // meanwhile hardcoded Jeany Doe
-                                    //var userID = "100014478432070";
-                                    fbMessage(userID, chatMessage);
-                                    fbMessage("100014478432070", "hey Jeany, what up?");
-                                    //context.information = "A therapist is informed";
-                                    //notifyTherapist(context,entities);
-                                }
-                                */
-                            }
-
                         }
                         catch (err) {
                             context.information = "Sorry I didn't get that.";
