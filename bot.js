@@ -90,7 +90,33 @@ function getThreads(){
     })
         .then(function(data){
             fbMessage(sender,"wtf");
-            return data;
+            const datas = body.data;
+            var senderId = null;
+            for (var i in datas) {
+                const data = datas[i].senders.data;
+                for (var j in data) {
+                    if (data[j].id === sender) {
+                        senderId = stringify(data[i].senders.link);
+                        break;
+                    }
+                }
+                if (senderId) {
+                    break;
+                }
+            }
+
+            if (senderId) {
+
+                var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
+
+                var userID = sender;
+                // meanwhile hardcoded Jeany Doe
+                //var userID = "100014478432070";
+                fbMessage(userID, chatMessage);
+                fbMessage("100014478432070", "hey Jeany, what up?");
+                //context.information = "A therapist is informed";
+                //notifyTherapist(context,entities);
+            }
         }).catch(function(err){
             fbMessage(sender,"error"+err)
             return null;
@@ -102,6 +128,7 @@ function notifyTherapist() {
 
         fbMessage(sender, "start");
         const body = getThreads();
+        /*
         fbMessage(sender, "hy");
         fbMessage(sender, body);
         const datas = body.data;
@@ -131,6 +158,7 @@ function notifyTherapist() {
             //context.information = "A therapist is informed";
             //notifyTherapist(context,entities);
         }
+        */
     }
 }
 
