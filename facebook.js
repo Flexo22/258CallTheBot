@@ -17,6 +17,18 @@ const fbReq = request.defaults({
   },
 });
 
+const fbGet = request.defaults({
+    uri: 'https://graph.facebook.com/me/threads?fields=senders,link',
+    method: 'GET',
+    json: true,
+    qs: {
+        access_token: Config.FB_PAGE_TOKEN
+    },
+    headers: {
+        'Content-Type': 'application/json'
+    },
+});
+
 
 const fbMessage = (recipientId, msg, cb) => {
   const opts = {
@@ -31,6 +43,17 @@ const fbMessage = (recipientId, msg, cb) => {
   };
 
   fbReq(opts, (err, resp, data) => {
+    if (cb) {
+      cb(err || data.error && data.error.message, data);
+    }
+  });
+};
+
+const fbGetThreads = (cb) => {
+  const opts = {
+  };
+
+  fbGet(opts, (err,resp,data) => {
     if (cb) {
       cb(err || data.error && data.error.message, data);
     }
@@ -54,9 +77,10 @@ const getFirstMessagingEntry = (body) => {
   return val || null;
 };
 
-
 module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
-  fbReq: fbReq
+  fbGetThreads: fbGetThreads,
+  fbReq: fbReq,
+  fbGet: fbGet
 };

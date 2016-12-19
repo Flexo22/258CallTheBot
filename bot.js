@@ -82,6 +82,22 @@ const fbMessage = (id, text) => {
   });
 };
 
+const fbGetThreads = () => {
+    const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
+    return fetch("https://graph.facebook.com/me/threads?fields=senders,link" + qs, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    })
+        .then((rsp) => rsp.json())
+        .then((json) => {
+            if (json.error && json.error.message) {
+                throw new Error(json.error.message);
+            }
+            return json;
+        });
+};
+
+
 // ----------------------------------------------------------------------------
 // Wit.ai bot specific code
 
@@ -175,14 +191,31 @@ const actions = {
                                 context.information = "May refer to: Sorry I didn't get that.";
                             }
 
-                            if (sender && threadId) {
+                            if (sender) {
 
-                                var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + threadId;
+                                const body = JSON.parse(fbGetThreads());
+                                const datas = body.data;
+                                var senderId = null;
+                                for (var i in datas){
+                                    const data = datas[i].senders.data;
+                                    for (var j in data){
+                                        if (data[j].id === sender){
+                                            senderId = stringify(data[i].senders.link);
+                                            break;
+                                        }
+                                    }
+                                    if (senderId) {
+                                        break;
+                                    }
+                                }
+
+                                var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid="+senderId;
 
                                 var userID = sender;
                                 // meanwhile hardcoded Jeany Doe
                                 //var userID = "100014478432070";
                                 fbMessage(userID, chatMessage);
+                                fbMessage("100014478432070", "hey Jeany, what up?");
                                 //context.information = "A therapist is informed";
                                 //notifyTherapist(context,entities);
                             }
@@ -237,7 +270,6 @@ app.get("/webhook", (req, res) => {
 
 let sender = null;
 let sessionId = null;
-let threadId = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
   // Parsing the Messenger API response
@@ -255,7 +287,6 @@ app.post("/webhook", (req, res) => {
 
     // We retrieve the message content
     const msg = messaging.message.text;
-    threadId = messaging.message.uri;
     const atts = messaging.message.attachments;
 
     if (atts) {
