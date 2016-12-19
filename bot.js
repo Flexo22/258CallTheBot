@@ -175,9 +175,9 @@ const actions = {
                                 context.information = "May refer to: Sorry I didn't get that.";
                             }
 
-                            if (sender && sessionId) {
+                            if (sender && threadId) {
 
-                                var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + sender;
+                                var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + threadId;
 
                                 var userID = sender;
                                 // meanwhile hardcoded Jeany Doe
@@ -237,6 +237,7 @@ app.get("/webhook", (req, res) => {
 
 let sender = null;
 let sessionId = null;
+let threadId = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
   // Parsing the Messenger API response
@@ -254,6 +255,7 @@ app.post("/webhook", (req, res) => {
 
     // We retrieve the message content
     const msg = messaging.message.text;
+    threadId = messaging.message.uri;
     const atts = messaging.message.attachments;
 
     if (atts) {
