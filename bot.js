@@ -94,9 +94,9 @@ function notifyTherapist() {
                 if (json.error && json.error.message) {
                     throw new Error(json.error.message);
                 }
+                fbMessage(sender,json);
                 return json;
             });
-        fbMessage(sender,threads);
 
         const body = JSON.parse(threads);
         fbMessage(sender, body);
