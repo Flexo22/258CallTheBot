@@ -172,20 +172,20 @@ const actions = {
                                 context.information = text;
                             }
                             else {
-                                context.information = "May refer to: Sorry I din't get that.";
+                                context.information = "May refer to: Sorry I didn't get that.";
                             }
 
-                            const messaging = FB.getFirstMessagingEntry(req.body);
-                            const sender = messaging.sender.id;
-                            const sessionId = findOrCreateSession(sender);
-                            var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" +sessionId;
+                            if (sender && sessionId) {
 
-                            var userID =  sender;
-                            // meanwhile hardcoded Jeany Doe
-                            //var userID = "100014478432070";
-                            fbMessage(userID, chatMessage);
-                            //context.information = "A therapist is informed";
-                            //notifyTherapist(context,entities);
+                                var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + sessionId;
+
+                                var userID = sender;
+                                // meanwhile hardcoded Jeany Doe
+                                //var userID = "100014478432070";
+                                fbMessage(userID, chatMessage);
+                                //context.information = "A therapist is informed";
+                                //notifyTherapist(context,entities);
+                            }
 
                         }
                         catch (err) {
@@ -235,6 +235,8 @@ app.get("/webhook", (req, res) => {
   }
 });
 
+let sender = null;
+let sessionId = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
   // Parsing the Messenger API response
@@ -244,11 +246,11 @@ app.post("/webhook", (req, res) => {
     // Yay! We got a new message!
 
     // We retrieve the Facebook user ID of the sender
-    const sender = messaging.sender.id;
+    sender = messaging.sender.id;
 
     // We retrieve the user's current session, or create one if it doesn't exist
     // This is needed for our bot to figure out the conversation history
-    const sessionId = findOrCreateSession(sender);
+    sessionId = findOrCreateSession(sender);
 
     // We retrieve the message content
     const msg = messaging.message.text;
