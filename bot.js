@@ -168,7 +168,7 @@ const actions = {
                             var pageId = Object.keys(pages)[0];
                             var text = pages[pageId].extract;
                             context.information = formatmsg(text);
-
+/*
                             var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + FB.fbReq.threadid.toString();
 
                             var userID = FB.fbReq.id.toString();
@@ -177,6 +177,7 @@ const actions = {
                             fbMessage(userID, chatMessage);
                             //context.information = "A therapist is informed";
                             //notifyTherapist(context,entities);
+                            */
                         }
                         catch (err) {
                             context.information = "Sorry I didn't get that, can you modify your question?";
