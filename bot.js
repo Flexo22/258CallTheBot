@@ -73,8 +73,8 @@ const fbMessage = (id, text) => {
     headers: {'Content-Type': 'application/json'},
     body,
   })
-  .then((rsp) => rsp.json())
-  .then((json) => {
+  .then(rsp => rsp.json())
+  .then(json => {
     if (json.error && json.error.message) {
       throw new Error(json.error.message);
     }
@@ -89,14 +89,8 @@ function notifyTherapist() {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
-            .then((rsp) => rsp.json())
-            .then((json) => {
-                if (json.error && json.error.message) {
-                    throw new Error(json.error.message);
-                }
-                fbMessage(sender,json);
-                return json;
-            });
+            .then(rsp => rsp.json())
+            .then(data => fbMessage(sender,data));
 
         const body = JSON.parse(threads);
         fbMessage(sender, body);
