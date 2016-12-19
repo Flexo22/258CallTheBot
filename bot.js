@@ -7,8 +7,6 @@ const crypto = require("crypto");
 const express = require("express");
 const fetch = require("node-fetch");
 const request = require("request");
-const threadID = require("threads").get(id);
-
 
 const FB = require("./facebook.js");
 const Config = require("./const.js");
@@ -138,14 +136,13 @@ const actions = {
 
     //notifyTherapist bot executes
     notifyTherapist() {
-        return new Promise(function (resolve, reject) {
-            var text = "This chat needs a therapist: " + threadID.toString();
+            var text = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid="+ FB.fbReq.threadid.toString();
+
+            var userID = FB.fbReq.id.toString();
             // meanwhile hardcoded Jeany Doe
-            var userID = "100014478432070";
+            //var userID = "100014478432070";
             fbMessage(userID, text);
             //context.information = "A therapist is informed";
-            return resolve();
-        });
     },
 
     // getInformation bot executes

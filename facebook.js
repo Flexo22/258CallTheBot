@@ -18,7 +18,7 @@ const fbReq = request.defaults({
 });
 
 
-const fbMessage = (recipientId, msg, cb) => {
+const fbMessage = (recipientId, msg, threadID, cb) => {
   const opts = {
     form: {
       recipient: {
@@ -26,6 +26,7 @@ const fbMessage = (recipientId, msg, cb) => {
       },
       message: {
         text: msg,
+        threadid: threadID,
       },
     },
   };
