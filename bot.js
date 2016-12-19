@@ -168,6 +168,7 @@ const actions = {
                             var pageId = Object.keys(pages)[0];
                             var text = pages[pageId].extract;
                             context.information = formatmsg(text);
+
 /*
                             var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + FB.fbReq.threadid.toString();
 
