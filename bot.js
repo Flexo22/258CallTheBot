@@ -151,7 +151,7 @@ const actions = {
     },
 
     // getInformation bot executes
-    getInformation({sessionId},{context,entities}) {
+    getInformation({context,entities}) {
         return new Promise(function(resolve,reject){
 
             var searchQuery = firstEntityValue(entities,"search_query");
@@ -175,7 +175,9 @@ const actions = {
                                 throw error;
                             }
 
-                            //const messaging = FB.getFirstMessagingEntry(req.body);
+                            const messaging = FB.getFirstMessagingEntry(req.body);
+                            const sender = messaging.sender.id;
+                            const sessionId = findOrCreateSession(sender);
                             var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" +sessionId;
 
                             // meanwhile hardcoded Jeany Doe
