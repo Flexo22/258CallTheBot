@@ -92,7 +92,7 @@ function notifyTherapist() {
             .then(function(response){
                 return response.json();
             }).then(function(data){
-                fbMessage(sender, ""+data);
+                fbMessage(sender, ""+data.body);
             }).catch(function (ex){
             fbMessage(sender,"failed");
         });
