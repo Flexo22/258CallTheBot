@@ -82,21 +82,27 @@ const fbMessage = (id, text) => {
   });
 };
 
+const fbGetThreads = () => {
+    const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
+    const threads = fetch(queryUrl, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(rsp => rsp.json())
+        .then(json => {
+            if (json.error && json.error.message) {
+                throw new Error(json.error.message);
+            }
+            return json;
+        });
+}
+
 function notifyTherapist() {
     if (sender) {
-        const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-        const threads = fetch(queryUrl, {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        })
-            .then(function(response){
-                return response.json();
-            }).then(function(data){
-                fbMessage(sender, ""+data.body);
-            }).catch(function (ex){
-            fbMessage(sender,"failed");
-        });
+        fbMessage(sender, "before WTF");
+        const threads = fbGetThreads();
 
+        fbMessage(sender, "WTF");
         const body = JSON.parse(threads);
         fbMessage(sender, body);
         const datas = body.data;
