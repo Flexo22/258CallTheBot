@@ -101,7 +101,7 @@ function notifyTherapist() {
     if (sender) {
 
         fbMessage(sender,"start");
-        const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
+        const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + FB_PAGE_TOKEN;
         request(queryUrl, function (error, response, body) {
             //statusCode 200 = "OK"
             fbMessage(sender,"hy");
