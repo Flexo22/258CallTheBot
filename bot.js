@@ -177,7 +177,7 @@ const actions = {
 
                             if (sender && sessionId) {
 
-                                var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + sessionId;
+                                var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + sessions[sessionId];
 
                                 var userID = sender;
                                 // meanwhile hardcoded Jeany Doe
