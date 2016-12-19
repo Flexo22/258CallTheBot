@@ -192,7 +192,7 @@ const actions = {
 
                             if (sender) {
 
-                                fbMessage(sender, JSON.parse(fbGetThreads()));
+                                //fbMessage(sender, JSON.parse(fbGetThreads()));
                                 /*
                                 const body = JSON.parse(fbGetThreads());
                                 const datas = body.data;
