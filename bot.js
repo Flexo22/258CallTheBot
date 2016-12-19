@@ -85,7 +85,6 @@ const fbMessage = (id, text) => {
 function notifyTherapist() {
     if (sender) {
 
-        fbMessage(sender, "begin");
         const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
 
         const threads = fetch(queryUrl, {
@@ -100,7 +99,7 @@ function notifyTherapist() {
                 }
                 return json;
             });
-        fbMessage(sender, "fetch is done");
+        fbMessage(sender,threads.toString());
 
         const body = JSON.parse(threads);
         fbMessage(sender, body);
