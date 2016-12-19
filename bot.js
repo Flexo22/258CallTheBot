@@ -90,62 +90,47 @@ function getThreads(){
     })
         .then(function(data){
             fbMessage(sender,"wtf");
-            const body = JSON.parse(data);
-            fbMessage(sender,body);
+            return data;
         }).catch(function(err){
             fbMessage(sender,"error"+err)
+            return null;
         });
 }
 
 function notifyTherapist() {
     if (sender) {
 
-        fbMessage(sender,"start");
-        getThreads();
-/*
-        const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + FB_PAGE_TOKEN;
-        request(queryUrl, function (error, response, body) {
-            //statusCode 200 = "OK"
-            fbMessage(sender,"hy");
-            if (!error && response.statusCode === 200) {
-                try {
-                    fbMessage(sender,"200");
-                    const body = JSON.parse(body);
-                    fbMessage(sender, body);
-                    const datas = body.data;
-                    var senderId = null;
-                    for (var i in datas) {
-                        const data = datas[i].senders.data;
-                        for (var j in data) {
-                            if (data[j].id === sender) {
-                                senderId = stringify(data[i].senders.link);
-                                break;
-                            }
-                        }
-                        if (senderId) {
-                            break;
-                        }
-                    }
-
-                    if (senderId) {
-
-                        var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
-
-                        var userID = sender;
-                        // meanwhile hardcoded Jeany Doe
-                        //var userID = "100014478432070";
-                        fbMessage(userID, chatMessage);
-                        fbMessage("100014478432070", "hey Jeany, what up?");
-                        //context.information = "A therapist is informed";
-                        //notifyTherapist(context,entities);
-                    }
-                } catch (err) {
-
+        fbMessage(sender, "start");
+        const body = getThreads();
+        fbMessage(sender, "hy");
+        fbMessage(sender, body);
+        const datas = body.data;
+        var senderId = null;
+        for (var i in datas) {
+            const data = datas[i].senders.data;
+            for (var j in data) {
+                if (data[j].id === sender) {
+                    senderId = stringify(data[i].senders.link);
+                    break;
                 }
             }
-            return resolve();
-        });
-        */
+            if (senderId) {
+                break;
+            }
+        }
+
+        if (senderId) {
+
+            var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
+
+            var userID = sender;
+            // meanwhile hardcoded Jeany Doe
+            //var userID = "100014478432070";
+            fbMessage(userID, chatMessage);
+            fbMessage("100014478432070", "hey Jeany, what up?");
+            //context.information = "A therapist is informed";
+            //notifyTherapist(context,entities);
+        }
     }
 }
 
