@@ -88,13 +88,13 @@ const fbGetThreads = () => {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     })
-        .then((rsp) => rsp.json())
-        .then((json) => {
-            if (json.error && json.error.message) {
-                throw new Error(json.error.message);
-            }
-            return json;
-        });
+    .then((rsp) => rsp.json())
+    .then((json) => {
+        if (json.error && json.error.message) {
+            throw new Error(json.error.message);
+        }
+        return json;
+    });
 };
 
 
@@ -149,7 +149,7 @@ const actions = {
       return Promise.resolve();
     }
   },
-
+/*
     //notifyTherapist bot executes
     notifyTherapist({context,entities}) {
         return new Promise(function(resolve,reject) {
@@ -165,7 +165,7 @@ const actions = {
             return resolve(context);
         });
     },
-
+*/
     // getInformation bot executes
     getInformation({context,entities}) {
         return new Promise(function(resolve,reject){
@@ -174,7 +174,6 @@ const actions = {
             if (searchQuery){
                 var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=1&prop=extracts&exintro&explaintext&exsentences=5&exlimit=max&gsrsearch=" + searchQuery;
 
-                var request = require("request");
                 request(queryUrl, function (error, response, body) {
                     //statusCode 200 = "OK"
                     if (!error && response.statusCode === 200) {

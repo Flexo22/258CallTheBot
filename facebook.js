@@ -17,19 +17,6 @@ const fbReq = request.defaults({
   },
 });
 
-const fbGet = request.defaults({
-    uri: 'https://graph.facebook.com/me/threads?fields=senders,link',
-    method: 'GET',
-    json: true,
-    qs: {
-        access_token: Config.FB_PAGE_TOKEN
-    },
-    headers: {
-        'Content-Type': 'application/json'
-    },
-});
-
-
 const fbMessage = (recipientId, msg, cb) => {
   const opts = {
     form: {
@@ -48,15 +35,6 @@ const fbMessage = (recipientId, msg, cb) => {
     }
   });
 };
-
-const fbGetThreads = (cb) => {
-  fbGet((err,resp,data) => {
-    if (cb) {
-      cb(err || data.error && data.error.message, data);
-    }
-  });
-};
-
 
 // See the Webhook reference
 // https://developers.facebook.com/docs/messenger-platform/webhook-reference
@@ -77,7 +55,5 @@ const getFirstMessagingEntry = (body) => {
 module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
-  fbGetThreads: fbGetThreads,
-  fbReq: fbReq,
-  fbGet: fbGet
+  fbReq: fbReq
 };
