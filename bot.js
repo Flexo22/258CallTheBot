@@ -90,7 +90,7 @@ function getThreads(){
     })
         .then(function(response){
             fbMessage(sender,"wtf");
-            fbMessage(sender,response.json());
+            fbMessage(sender,response.toString());
         }).catch(function(err){
             fbMessage(sender,"error"+err)
         });
