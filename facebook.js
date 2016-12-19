@@ -50,10 +50,7 @@ const fbMessage = (recipientId, msg, cb) => {
 };
 
 const fbGetThreads = (cb) => {
-  const opts = {
-  };
-
-  fbGet(opts, (err,resp,data) => {
+  fbGet((err,resp,data) => {
     if (cb) {
       cb(err || data.error && data.error.message, data);
     }
