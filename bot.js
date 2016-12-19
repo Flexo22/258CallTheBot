@@ -89,8 +89,14 @@ function notifyTherapist() {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
-            .then(rsp => rsp.json())
-            .then(data => fbMessage(sender,""+stringfy(data)));
+            .then(function(response){
+                fbMessage(sender, response.json());
+                return response.text;
+            }).then(function(text){
+                fbMessage(sender,"got text");
+            }).catch(function (ex){
+            fbMessage(sender,"failed");
+        });
 
         const body = JSON.parse(threads);
         fbMessage(sender, body);
