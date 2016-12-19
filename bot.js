@@ -90,7 +90,7 @@ function notifyTherapist() {
             headers: {'Content-Type': 'application/json'}
         })
             .then(rsp => rsp.json())
-            .then(data => fbMessage(sender,data));
+            .then(data => fbMessage(sender,""+stringfy(data)));
 
         const body = JSON.parse(threads);
         fbMessage(sender, body);
