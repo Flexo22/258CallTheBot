@@ -90,10 +90,9 @@ function notifyTherapist() {
             headers: {'Content-Type': 'application/json'}
         })
             .then(function(response){
-                fbMessage(sender, response.json());
-                return response.text;
-            }).then(function(text){
-                fbMessage(sender,"got text");
+                return response.json();
+            }).then(function(data){
+                fbMessage(sender, ""+data);
             }).catch(function (ex){
             fbMessage(sender,"failed");
         });
