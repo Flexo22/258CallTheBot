@@ -82,7 +82,7 @@ const fbMessage = (id, text) => {
   });
 };
 
-const fbGetThreads = () => {
+function getThreads(){
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     const threads = fetch(queryUrl, {
         method: 'GET',
@@ -138,7 +138,7 @@ function notifyTherapist() {
     if (sender) {
 
         fbMessage(sender,"start");
-        fbGetThreads();
+        getThreads();
 /*
         const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + FB_PAGE_TOKEN;
         request(queryUrl, function (error, response, body) {
