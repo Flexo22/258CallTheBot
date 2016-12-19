@@ -172,7 +172,7 @@ const actions = {
                                 context.information = text;
                             }
                             else {
-                                throw error;
+                                context.information = "May refer to: Sorry I din't get that.";
                             }
 
                             const messaging = FB.getFirstMessagingEntry(req.body);
@@ -180,8 +180,8 @@ const actions = {
                             const sessionId = findOrCreateSession(sender);
                             var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" +sessionId;
 
-                            // meanwhile hardcoded Jeany Doe
                             var userID =  sender;
+                            // meanwhile hardcoded Jeany Doe
                             //var userID = "100014478432070";
                             fbMessage(userID, chatMessage);
                             //context.information = "A therapist is informed";
