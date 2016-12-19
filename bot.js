@@ -181,7 +181,8 @@ const actions = {
                             var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" +sessionId;
 
                             // meanwhile hardcoded Jeany Doe
-                            var userID = "100014478432070";
+                            var userID =  sender;
+                            //var userID = "100014478432070";
                             fbMessage(userID, chatMessage);
                             //context.information = "A therapist is informed";
                             //notifyTherapist(context,entities);
