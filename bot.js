@@ -100,11 +100,14 @@ const fbGetThreads = () => {
 function notifyTherapist() {
     if (sender) {
 
+        fbMessage(sender,"start");
         const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
         request(queryUrl, function (error, response, body) {
             //statusCode 200 = "OK"
+            fbMessage(sender,"hy");
             if (!error && response.statusCode === 200) {
                 try {
+                    fbMessage(sender,"200");
                     const body = JSON.parse(body);
                     fbMessage(sender, body);
                     const datas = body.data;
