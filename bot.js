@@ -84,22 +84,19 @@ const fbMessage = (id, text) => {
 
 function notifyTherapist() {
     if (sender) {
-
         const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-
         const threads = fetch(queryUrl, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
-            .then(function (res) {
-                return res.json();
-            }).then(function (json) {
+            .then((rsp) => rsp.json())
+            .then((json) => {
                 if (json.error && json.error.message) {
                     throw new Error(json.error.message);
                 }
                 return json;
             });
-        fbMessage(sender,threads.toString());
+        fbMessage(sender,threads);
 
         const body = JSON.parse(threads);
         fbMessage(sender, body);
