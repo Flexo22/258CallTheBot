@@ -135,14 +135,19 @@ const actions = {
   },
 
     //notifyTherapist bot executes
-    notifyTherapist() {
-            var text = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid="+ FB.fbReq.threadid.toString();
+    notifyTherapist({context,entities}) {
+        return new Promise(function(resolve,reject) {
+
+            var text = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + FB.fbReq.threadid.toString();
 
             var userID = FB.fbReq.id.toString();
             // meanwhile hardcoded Jeany Doe
             //var userID = "100014478432070";
             fbMessage(userID, text);
             //context.information = "A therapist is informed";
+
+            return resolve(context);
+        });
     },
 
     // getInformation bot executes
@@ -163,7 +168,15 @@ const actions = {
                             var pageId = Object.keys(pages)[0];
                             var text = pages[pageId].extract;
                             context.information = formatmsg(text);
-                            notifyTherapist();
+
+                            var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + FB.fbReq.threadid.toString();
+
+                            var userID = FB.fbReq.id.toString();
+                            // meanwhile hardcoded Jeany Doe
+                            //var userID = "100014478432070";
+                            fbMessage(userID, chatMessage);
+                            //context.information = "A therapist is informed";
+                            //notifyTherapist(context,entities);
                         }
                         catch (err) {
                             context.information = "Sorry I didn't get that, can you modify your question?";
