@@ -151,7 +151,7 @@ const actions = {
     },
 
     // getInformation bot executes
-    getInformation({context,entities}) {
+    getInformation({sessionId},{context,entities}) {
         return new Promise(function(resolve,reject){
 
             var searchQuery = firstEntityValue(entities,"search_query");
@@ -167,21 +167,26 @@ const actions = {
                             var pages = body.query.pages;
                             var pageId = Object.keys(pages)[0];
                             var text = pages[pageId].extract;
-                            context.information = formatmsg(text);
+                            var text = formatmsg(text);
+                            if (!text.includes("May refer to:")) {
+                                context.information = text;
+                            }
+                            else {
+                                throw error;
+                            }
 
-/*
-                            var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" + FB.fbReq.threadid.toString();
+                            //const messaging = FB.getFirstMessagingEntry(req.body);
+                            var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid=" +sessionId;
 
-                            var userID = FB.fbReq.id.toString();
                             // meanwhile hardcoded Jeany Doe
-                            //var userID = "100014478432070";
+                            var userID = "100014478432070";
                             fbMessage(userID, chatMessage);
                             //context.information = "A therapist is informed";
                             //notifyTherapist(context,entities);
-                            */
+
                         }
                         catch (err) {
-                            context.information = "Sorry I didn't get that, can you modify your question?";
+                            context.information = "Sorry I didn't get that.";
                         }
                     } else {
                         context.information = "Connection Error: "+ response.statusCode;
