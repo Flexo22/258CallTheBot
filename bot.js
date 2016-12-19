@@ -88,9 +88,11 @@ function getThreads(){
         method: 'GET',
         headers: {'Accept': 'application/json'}
     })
-        .then(function(response){
+        .then(function(error, response, body){
             fbMessage(sender,"wtf");
+            const body = JSON.parse(body);
             fbMessage(sender,response.toString());
+            fbMessage(sender,body);
         }).catch(function(err){
             fbMessage(sender,"error"+err)
         });
