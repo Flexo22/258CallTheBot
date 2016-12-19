@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const crypto = require("crypto");
 const express = require("express");
 const fetch = require("node-fetch");
+const fetchUrl = require('fetch').fetchUrl;
 const request = require("request");
 
 const FB = require("./facebook.js");
@@ -84,40 +85,39 @@ const fbMessage = (id, text) => {
 
 function getThreads(){
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    const threads = fetch(queryUrl, function (error, response,body) {
-        if(error && response.statusCode !== 200) {
+    const threads = fetchUrl(queryUrl, function (error, response,body) {
+        if (error && response.statusCode !== 200) {
             return console.log('ERROR', error.message || error);
         }
-            fbMessage(sender,"wtf");
-            const datas = body.data;
-            var senderId = null;
-            for (var i in datas) {
-                const data = datas[i].senders.data;
-                for (var j in data) {
-                    if (data[j].id === sender) {
-                        senderId = stringify(data[i].senders.link);
-                        break;
-                    }
-                }
-                if (senderId) {
+        fbMessage(sender, "wtf");
+        const datas = body.data;
+        var senderId = null;
+        for (var i in datas) {
+            const data = datas[i].senders.data;
+            for (var j in data) {
+                if (data[j].id === sender) {
+                    senderId = stringify(data[i].senders.link);
                     break;
                 }
             }
-
             if (senderId) {
-
-                var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
-
-                var userID = sender;
-                // meanwhile hardcoded Jeany Doe
-                //var userID = "100014478432070";
-                fbMessage(userID, chatMessage);
-                fbMessage("100014478432070", "hey Jeany, what up?");
-                //context.information = "A therapist is informed";
-                //notifyTherapist(context,entities);
+                break;
             }
+        }
 
-        });
+        if (senderId) {
+
+            var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
+
+            var userID = sender;
+            // meanwhile hardcoded Jeany Doe
+            //var userID = "100014478432070";
+            fbMessage(userID, chatMessage);
+            fbMessage("100014478432070", "hey Jeany, what up?");
+            //context.information = "A therapist is informed";
+            //notifyTherapist(context,entities);
+        }
+    });
 }
 
 function notifyTherapist() {
