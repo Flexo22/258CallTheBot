@@ -193,13 +193,15 @@ const actions = {
 
                             if (sender) {
 
+                                fbMessage(sender, JSON.parse(fbGetThreads()));
+                                /*
                                 const body = JSON.parse(fbGetThreads());
                                 const datas = body.data;
                                 var senderId = null;
-                                for (var i in datas){
+                                for (var i in datas) {
                                     const data = datas[i].senders.data;
-                                    for (var j in data){
-                                        if (data[j].id === sender){
+                                    for (var j in data) {
+                                        if (data[j].id === sender) {
                                             senderId = stringify(data[i].senders.link);
                                             break;
                                         }
@@ -209,15 +211,19 @@ const actions = {
                                     }
                                 }
 
-                                var chatMessage = "This chat needs a therapist: https://www.facebook.com/258callthebot-1214082615301701/messages/?threadid="+senderId;
+                                if (senderId) {
 
-                                var userID = sender;
-                                // meanwhile hardcoded Jeany Doe
-                                //var userID = "100014478432070";
-                                fbMessage(userID, chatMessage);
-                                fbMessage("100014478432070", "hey Jeany, what up?");
-                                //context.information = "A therapist is informed";
-                                //notifyTherapist(context,entities);
+                                    var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
+
+                                    var userID = sender;
+                                    // meanwhile hardcoded Jeany Doe
+                                    //var userID = "100014478432070";
+                                    fbMessage(userID, chatMessage);
+                                    fbMessage("100014478432070", "hey Jeany, what up?");
+                                    //context.information = "A therapist is informed";
+                                    //notifyTherapist(context,entities);
+                                }
+                                */
                             }
 
                         }
