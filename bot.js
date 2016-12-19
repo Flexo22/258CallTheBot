@@ -84,11 +84,10 @@ const fbMessage = (id, text) => {
 
 function getThreads(){
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    const threads = fetch(queryUrl, {
-        method: 'GET',
-        headers: {'Accept': 'application/json'}
-    })
-        .then(function(data){
+    const threads = fetch(queryUrl, function (error, response,body) {
+        if(error && response.statusCode !== 200) {
+            return console.log('ERROR', error.message || error);
+        }
             fbMessage(sender,"wtf");
             const datas = body.data;
             var senderId = null;
@@ -117,9 +116,7 @@ function getThreads(){
                 //context.information = "A therapist is informed";
                 //notifyTherapist(context,entities);
             }
-        }).catch(function(err){
-            fbMessage(sender,"error"+err)
-            return null;
+
         });
 }
 
