@@ -83,15 +83,13 @@ const fbMessage = (id, text) => {
 };
 
 function getThreads(){
-    var parseJson = function (response){
-        return response.json();
-    };
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     const threads = fetch(queryUrl, {
         method: 'GET',
         headers: {'Accept': 'application/json'}
     })
         .then(function(response){
+            fbMessage(sender,"wtf");
             fbMessage(sender,response.json());
         }).catch(function(err){
             fbMessage(sender,"error"+err)
