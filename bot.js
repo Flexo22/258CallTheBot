@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const crypto = require("crypto");
 const express = require("express");
 const fetch = require("node-fetch");
-const fetchUrl = require('fetch').fetchUrl;
+const fetchUrl = require("fetch").fetchUrl;
 const request = require("request");
 
 const FB = require("./facebook.js");
