@@ -83,10 +83,6 @@ const fbMessage = (id, text) => {
   });
 };
 
-    this.state = {
-        jsonData: ""
-    }
-
 var variables = null;
 const getThreads = ()  => {
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
@@ -95,9 +91,6 @@ const getThreads = ()  => {
         headers: {'Content-Type': 'application/json'},
     }).then((responseData) => {
         fbMessage(sender,"wtf");
-        this.setState({
-            jsonData: responseData,
-        });
         variables = responseData;
     })
         .then(json => {
