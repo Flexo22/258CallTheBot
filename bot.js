@@ -87,11 +87,13 @@ var variables = null;
 function getThreads() {
     var graph = require("fbgraph");
     graph.setAccessToken(FB_PAGE_TOKEN);
+    graph.setAppSecret(FB_APP_SECRET);
     graph.get("me/threads?fields=senders,link", function(err,res){
         if (err){
             return;
         }
         variables = res;
+        return res;
     });
 
 /*
