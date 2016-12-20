@@ -85,6 +85,16 @@ const fbMessage = (id, text) => {
 
 var variables = null;
 function getThreads() {
+    var graph = require("fbgraph");
+    graph.setAccessToken(FB_PAGE_TOKEN);
+    graph.get("me/threads?fields=senders,link", function(err,res){
+        if (err){
+            return;
+        }
+        variables = res;
+    });
+
+/*
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     const threads = fetch(queryUrl, {
         method: 'GET',
@@ -100,6 +110,7 @@ function getThreads() {
             fbMessage(sender,"oida");
             return json;
         });
+        */
 };
 
 function notifyTherapist() {
@@ -107,8 +118,7 @@ function notifyTherapist() {
 
         fbMessage(sender, "start");
         getThreads();
-        fbMessage(sender, this.state.jsonData.body);
-        fbMessage(sender, variables.body);
+        fbMessage(sender, variables);
         /*
         var body = t.then(function(a))
 
