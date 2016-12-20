@@ -84,7 +84,7 @@ const fbMessage = (id, text) => {
 
 function getThreads() {
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    return fetch("https://graph.facebook.com/me/threads?fields=senders,link&" + qs, {
+    return fetch("https://graph.facebook.com/me" + qs, { ///threads?fields=senders,link&
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     }).then(rsp => rsp.json())
