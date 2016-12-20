@@ -83,12 +83,21 @@ const fbMessage = (id, text) => {
   });
 };
 
-function getThreads(){
+const getThreads = ()  => {
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    const threads = fetchUrl(queryUrl, function (error, response,body) {
-        if (error && response.statusCode !== 200) {
-            return console.log('ERROR', error.message || error);
-        }
+    const threads = fetch(queryUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+    }).then(rsp => rsp.json())
+        .then(json => {
+            if (json.error && json.error.message) {
+                throw new Error(json.error.message);
+            }
+            fbMessage(sender,"oida");
+            return json;
+        });
+};
+/*
         fbMessage(sender, "wtf");
         const datas = body.data;
         var senderId = null;
@@ -119,13 +128,16 @@ function getThreads(){
         }
     });
 }
+*/
 
 function notifyTherapist() {
     if (sender) {
 
         fbMessage(sender, "start");
-        const body = getThreads();
+        var t = getThreads();
         /*
+        var body = t.then(function(a))
+
         fbMessage(sender, "hy");
         fbMessage(sender, body);
         const datas = body.data;
@@ -155,7 +167,7 @@ function notifyTherapist() {
             //context.information = "A therapist is informed";
             //notifyTherapist(context,entities);
         }
-        */
+*/
     }
 }
 
