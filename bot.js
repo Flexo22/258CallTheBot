@@ -87,11 +87,11 @@ var variables = null;
 const getThreads = ()  => {
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     const threads = fetch(queryUrl, {
-        method: 'POST',
+        method: 'GET',
         headers: {'Content-Type': 'application/json'},
     }).then((responseData) => {
         fbMessage(sender,"wtf");
-        variables = responseData;
+        variables = responseData.body;
     })
         .then(json => {
             if (json.error && json.error.message) {
