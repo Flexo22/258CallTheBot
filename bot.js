@@ -84,7 +84,7 @@ const fbMessage = (id, text) => {
 };
 
 var variables = null;
-const getThreads = ()  => {
+function getThreads() {
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     const threads = fetch(queryUrl, {
         method: 'GET',
