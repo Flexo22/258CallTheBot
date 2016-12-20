@@ -83,12 +83,23 @@ const fbMessage = (id, text) => {
   });
 };
 
+    this.state = {
+        jsonData: ""
+    }
+
+var variables = null;
 const getThreads = ()  => {
     const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     const threads = fetch(queryUrl, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-    }).then(rsp => rsp.json())
+    }).then((responseData) => {
+        fbMessage(sender,"wtf");
+        this.setState({
+            jsonData: responseData,
+        });
+        variables = responseData;
+    })
         .then(json => {
             if (json.error && json.error.message) {
                 throw new Error(json.error.message);
@@ -97,44 +108,14 @@ const getThreads = ()  => {
             return json;
         });
 };
-/*
-        fbMessage(sender, "wtf");
-        const datas = body.data;
-        var senderId = null;
-        for (var i in datas) {
-            const data = datas[i].senders.data;
-            for (var j in data) {
-                if (data[j].id === sender) {
-                    senderId = stringify(data[i].senders.link);
-                    break;
-                }
-            }
-            if (senderId) {
-                break;
-            }
-        }
-
-        if (senderId) {
-
-            var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
-
-            var userID = sender;
-            // meanwhile hardcoded Jeany Doe
-            //var userID = "100014478432070";
-            fbMessage(userID, chatMessage);
-            fbMessage("100014478432070", "hey Jeany, what up?");
-            //context.information = "A therapist is informed";
-            //notifyTherapist(context,entities);
-        }
-    });
-}
-*/
 
 function notifyTherapist() {
     if (sender) {
 
         fbMessage(sender, "start");
-        var t = getThreads();
+        getThreads();
+        fbMessage(sender, this.state.jsonData.body);
+        fbMessage(sender, variables.body);
         /*
         var body = t.then(function(a))
 
