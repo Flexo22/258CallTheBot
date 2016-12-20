@@ -82,16 +82,12 @@ const fbMessage = (id, text) => {
   });
 };
 
-var variables = null;
 function getThreads() {
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     return fetch("https://graph.facebook.com/me/threads?fields=senders,link&" + qs, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
-    }).then((responseData) => {
-        fbMessage(sender, "wtf");
-        variables = responseData.body;
-    })
+    }).then(rsp => rsp.json())
         .then(json => {
             if (json.error && json.error.message) {
                 throw new Error(json.error.message);
@@ -105,8 +101,11 @@ function notifyTherapist() {
     if (sender) {
 
         fbMessage(sender, "start");
-        getThreads();
-        fbMessage(sender, variables);
+        var fetch = getThreads();
+        fetch.on("data", function(){
+            fbMessage(sender, "lol?");
+        })
+        fbMessage(sender, "end");
         /*
         var body = t.then(function(a))
 
