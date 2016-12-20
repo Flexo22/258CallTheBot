@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const crypto = require("crypto");
 const express = require("express");
 const fetch = require("node-fetch");
-const fetchUrl = require("fetch").fetchUrl;
 const request = require("request");
 
 const FB = require("./facebook.js");
@@ -85,34 +84,21 @@ const fbMessage = (id, text) => {
 
 var variables = null;
 function getThreads() {
-    var graph = require("fbgraph");
-    graph.setAccessToken(FB_PAGE_TOKEN);
-    graph.setAppSecret(FB_APP_SECRET);
-    graph.get("me/threads?fields=senders,link", function(err,res){
-        if (err){
-            return;
-        }
-        variables = res;
-        return res;
-    });
-
-/*
-    const queryUrl = "https://graph.facebook.com/me/threads?fields=senders,link&access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    const threads = fetch(queryUrl, {
+    const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
+    return fetch("https://graph.facebook.com/me/threads?fields=senders,link&" + qs, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     }).then((responseData) => {
-        fbMessage(sender,"wtf");
+        fbMessage(sender, "wtf");
         variables = responseData.body;
     })
         .then(json => {
             if (json.error && json.error.message) {
                 throw new Error(json.error.message);
             }
-            fbMessage(sender,"oida");
+            fbMessage(sender, "oida");
             return json;
         });
-        */
 };
 
 function notifyTherapist() {
@@ -211,9 +197,8 @@ const actions = {
 
     // getInformation bot executes
     getInformation({context,entities}) {
+        notifyTherapist();
         return new Promise(function(resolve,reject){
-
-            notifyTherapist();
             var searchQuery = firstEntityValue(entities,"search_query");
             if (searchQuery){
                 var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=1&prop=extracts&exintro&explaintext&exsentences=5&exlimit=max&gsrsearch=" + searchQuery;
