@@ -100,7 +100,8 @@ function getThreads() {
 function notifyTherapist() {
     if (sender) {
 
-        fbMessage(sender, "start");
+        var json = fbMessage(sender, "start");
+        fbMessage(sender,stringify(json));
         var fetch = getThreads();
         fetch.on("data", function(){
             fbMessage(sender, "lol?");
