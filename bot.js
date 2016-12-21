@@ -82,15 +82,17 @@ const fbMessage = (id, text) => {
   });
 };
 
-function handleThreads(body){
-    fbMessage(sender,body);
+function handleThreads(response){
+    if (response.application_response_code.substr(0, 1) === "1") {
+        fbMessage(sender, "Properties found: " + response.listings.length);
+    }
 }
 
 function fbThreads(){
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     return fetch("https://graph.facebook.com/me?" + qs)
-        .then(rsp => handleThreads(rsp.json()))
-        .then(json => json.rsp)
+        .then(response => handleThreads(response.json()))
+        .then(json => json.response)
         .catch(error => fbMessage(sender,"error: "+error));
 };
 
