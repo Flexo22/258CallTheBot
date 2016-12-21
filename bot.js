@@ -112,7 +112,7 @@ function fbThreads(){
 function notifyTherapist() {
     if (sender) {
 
-        fbThreads();
+        //fbThreads();
         fbMessage("132423543916926", "hey Jeany, what up? this person needs help: "+senderName);
 
         /*
