@@ -100,9 +100,9 @@ function fbThreads(){
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
         .then(function(result){
-            fbMessage(sender,"result: "+result.toString());
+            fbMessage(sender,"result: "+result.data);
             //fbMessage(sender, "json: "+JSON.parse(result));
-            fbMessage(sender, "json:body "+JSON.parse(result.body));
+            fbMessage(sender, "json:data "+JSON.parse(result.data));
             fbMessage(sender,"result.name: "+result.name);
             fbMessage(sender,"result.id: "+result.id);
             fbMessage(sender,"result.body.name: "+result.body.name);
