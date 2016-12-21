@@ -82,19 +82,6 @@ const fbMessage = (id, text) => {
   });
 };
 
-function handleThreads(response){
-        fbMessage(sender, "Properties found: " + response.listings.length);
-}
-
-function fbThreads(){
-    const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    return fetch("https://graph.facebook.com/me?" + qs)
-        .then(response => handleThreads(response.json()))
-        .then(json => json.response)
-        .catch(error => fbMessage(sender,"error: "+error));
-};
-
-/*
 function fbThreads(){
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/me?" + qs,  // /threads?fields=senders,link&
@@ -103,6 +90,7 @@ function fbThreads(){
             headers: {'Content-Type': 'application/json'},
         })
         .then(function(result){
+            result.on("data", fbMessage(sender,"data is da?!"));
             fbMessage(sender,"result.body: "+result.body);
             fbMessage(sender,"result.json: "+result.json());
             fbMessage(sender,"result.json().then();"+result.json().then().body);
@@ -115,7 +103,6 @@ function fbThreads(){
             fbMessage(sender,"error: "+result);
         });
 };
-*/
 function notifyTherapist() {
     if (sender) {
 
