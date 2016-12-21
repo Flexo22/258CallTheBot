@@ -83,9 +83,7 @@ const fbMessage = (id, text) => {
 };
 
 function handleThreads(response){
-    if (response.application_response_code.substr(0, 1) === "1") {
         fbMessage(sender, "Properties found: " + response.listings.length);
-    }
 }
 
 function fbThreads(){
