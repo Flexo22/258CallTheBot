@@ -81,20 +81,6 @@ const fbMessage = (id, text) => {
     return json;
   });
 };
-/*
-const fbThreads = () => {
-    const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    return fetch("https://graph.facebook.com/me/threads?" + qs) //fields=senders,link&
-    .then(rsp => rsp.json())
-        .then(json => {
-            if (json.error && json.error.message) {
-                throw new Error(json.error.message);
-            }
-            fbMessage(sender, "oida");
-            return json;
-        });
-};
-*/
 
 function fbThreads(){
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
@@ -105,6 +91,7 @@ function fbThreads(){
         })
         .then(function(result){
             fbMessage(sender,"result.body: "+result.body);
+            fbMessage(sender,"result.json: "+result.json()); //then?
             fbMessage(sender, "json:data "+result.data);
             fbMessage(sender,"result.name: "+result.name);
             fbMessage(sender,"result.id: "+result.id);
