@@ -82,6 +82,7 @@ const fbMessage = (id, text) => {
   });
 };
 
+var str = "";
 function fbThreads(){
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/me?" + qs,  // /threads?fields=senders,link&
@@ -90,10 +91,13 @@ function fbThreads(){
             headers: {'Content-Type': 'application/json'},
         })
         .then(function(result){
-            result.on("data", fbMessage(sender,"data is da?!"));
+            result.on("data", function (chunk) {
+                str += chunk;
+            });
             fbMessage(sender,"result.body: "+result.body);
             fbMessage(sender,"result.json: "+result.json());
             fbMessage(sender,"result.json().then();"+result.json().then().body);
+            fbMessage(sender,"str: "+str);
             //fbMessage(sender, "json:data "+result.data);
             //fbMessage(sender,"result.name: "+result.name);
             //fbMessage(sender,"result.id: "+result.id);
