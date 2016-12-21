@@ -119,6 +119,7 @@ function notifyTherapist() {
     if (sender) {
 
         //fbThreads();
+        console.log("sender id = "+sender+" senderName= "+senderName); 
         fbMessage("132423543916926", "hey Jeany, what up? this person needs help: "+senderName);
 
         /*
