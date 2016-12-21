@@ -98,7 +98,11 @@ const fbThreads = () => {
 
 function fbThreads(){
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
+    fetch("https://graph.facebook.com/me?" + qs,  // /threads?fields=senders,link&
+        {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+        })
         .then(function(result){
             fbMessage(sender,"result: "+result.data);
             //fbMessage(sender, "json: "+JSON.parse(result));
