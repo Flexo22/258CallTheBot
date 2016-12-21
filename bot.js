@@ -90,7 +90,9 @@ function fbThreads() {
             headers: {'Content-Type': 'application/json'},
         })
         .then(function (body) {
-            console.log(body.object);
+            console.log("body.object: "+body.object);
+            console.log("body.entry: "+body.entry);
+            console.log(body);
         });
     /*
         .then(function(result){
