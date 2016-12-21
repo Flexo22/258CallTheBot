@@ -100,7 +100,7 @@ const fbThreads = () => {
     return fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
         .then(function(result){
             fbMessage(sender,"result: "+result);
-            fbMessage(sender,"result.body: "+result.data);
+            fbMessage(sender,"result.body: "+result.body);
 
         })
         .then(function(result){
