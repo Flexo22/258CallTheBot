@@ -99,7 +99,7 @@ function notifyTherapist() {
     if (sender) {
 
         fbMessage(sender, "start");
-        fbMessage(sender,fbThreads().body);
+        fbMessage(sender, ""+fbThreads());
         /*
         fetch.on("data", function(){
             fbMessage(sender, "lol?");
