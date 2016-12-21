@@ -95,24 +95,21 @@ const fbThreads = () => {
         });
 };
 */
-const fbThreads = () => {
+
+function fbThreads(){
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    return fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
+    fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
         .then(function(result){
-            fbMessage(sender,"result: "+result);
+            fbMessage(sender,"result: "+result.toString());
             //fbMessage(sender, "json: "+JSON.parse(result));
             fbMessage(sender, "json:body "+JSON.parse(result.body));
             fbMessage(sender,"result.name: "+result.name);
             fbMessage(sender,"result.id: "+result.id);
             fbMessage(sender,"result.body.name: "+result.body.name);
             fbMessage(sender,"result.body.id: "+result.body.id);
-        })
-        .then(function(result){
-            if (result.error && result.error.message) {
-                throw new Error(result.error.message);
-            }
-            return json;
-        })
+        }, function (result){
+            fbMessage(sender,"error: "+result);
+        });
 };
 
 function notifyTherapist() {
