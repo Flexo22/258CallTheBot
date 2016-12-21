@@ -81,7 +81,7 @@ const fbMessage = (id, text) => {
     return json;
   });
 };
-
+/*
 const fbThreads = () => {
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     return fetch("https://graph.facebook.com/me/threads?" + qs) //fields=senders,link&
@@ -93,6 +93,20 @@ const fbThreads = () => {
             fbMessage(sender, "oida");
             return json;
         });
+};
+*/
+const fbThreads = () => {
+    const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
+    return fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
+        .then(function(result){
+            fbMessage(sender,result);
+        })
+        .then(function(result){
+            if (result.error && result.error.message) {
+                throw new Error(result.error.message);
+            }
+            return json;
+        })
 };
 
 function notifyTherapist() {
