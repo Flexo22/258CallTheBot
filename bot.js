@@ -89,16 +89,9 @@ function fbThreads() {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
         })
-        .then(function(body){
+        .then(function (body) {
             console.log(body.object);
-        })
-        .then(json => {
-            if (json.error && json.error.message) {
-                throw new Error(json.error.message);
-            }
-            return json;
         });
-
     /*
         .then(function(result){
 
