@@ -84,34 +84,17 @@ const fbMessage = (id, text) => {
 
 function fbThreads() {
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
+    fetch("https://graph.facebook.com/me/threads?" + qs) // /threads?fields=senders,link&
         .then(function (result) {
             var data = result.body._readableState.buffer.head.data;
             data = JSON.parse(data);
             console.log(data);
         });
-    /*
-        .then(function(result){
-
-            result.on("data", function (chunk) {
-                str += chunk;
-            });
-            ("data", console.log("data is da?!"));
-
-            console.log("result.body: "+result.body);
-            console.log("result.json: "+result.json());
-            console.log("result.json().then();"+result.json().then().body);
-            //fbMessage(sender, "json:data "+result.data);
-            //fbMessage(sender,"result.name: "+result.name);
-            //fbMessage(sender,"result.id: "+result.id);
-            //fbMessage(sender,"result.body.name: "+result.body.name);
-            //fbMessage(sender,"result.body.id: "+result.body.id);
-            */
 };
 function notifyTherapist() {
     if (sender) {
 
-        fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
+        //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
         fbThreads();
 
         /*
