@@ -91,12 +91,13 @@ function fbThreads(){
         })
         .then(function(result){
             fbMessage(sender,"result.body: "+result.body);
-            fbMessage(sender,"result.json: "+result.json()); //then?
-            fbMessage(sender, "json:data "+result.data);
-            fbMessage(sender,"result.name: "+result.name);
-            fbMessage(sender,"result.id: "+result.id);
-            fbMessage(sender,"result.body.name: "+result.body.name);
-            fbMessage(sender,"result.body.id: "+result.body.id);
+            fbMessage(sender,"result.json: "+result.json());
+            fbMessage(sender,"result.json().then();"+result.json().then());
+            //fbMessage(sender, "json:data "+result.data);
+            //fbMessage(sender,"result.name: "+result.name);
+            //fbMessage(sender,"result.id: "+result.id);
+            //fbMessage(sender,"result.body.name: "+result.body.name);
+            //fbMessage(sender,"result.body.id: "+result.body.id);
         }, function (result){
             fbMessage(sender,"error: "+result);
         });
