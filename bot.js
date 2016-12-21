@@ -94,11 +94,10 @@ function fbThreads(){
             result.on("data", function (chunk) {
                 str += chunk;
             });
-            result.on("data", fbMessage(sender,"data is da?!"));
-            fbMessage(sender,"result.body: "+result.body);
-            fbMessage(sender,"result.json: "+result.json());
-            fbMessage(sender,"result.json().then();"+result.json().then().body);
-            fbMessage(sender,"")
+            result.on("data", console.log(sender,"data is da?!"));
+            console.log("result.body: "+result.body);
+            console.log("result.json: "+result.json());
+            console.log("result.json().then();"+result.json().then().body);
             //fbMessage(sender, "json:data "+result.data);
             //fbMessage(sender,"result.name: "+result.name);
             //fbMessage(sender,"result.id: "+result.id);
@@ -111,8 +110,8 @@ function fbThreads(){
 function notifyTherapist() {
     if (sender) {
 
-        fbMessage(sender, "start");
         fbThreads();
+        fbMessage("100014478432070", "hey Jeany, what up? this person needs help: "+senderName);
 
         /*
         var body = t.then(function(a))
@@ -142,7 +141,7 @@ function notifyTherapist() {
             // meanwhile hardcoded Jeany Doe
             //var userID = "100014478432070";
             fbMessage(userID, chatMessage);
-            fbMessage("100014478432070", "hey Jeany, what up?");
+            fbMessage("100014478432070", "hey Jeany, what up? this person needs help: "+senderName);
             //context.information = "A therapist is informed";
             //notifyTherapist(context,entities);
         }
@@ -275,6 +274,7 @@ app.get("/webhook", (req, res) => {
 
 let sender = null;
 let sessionId = null;
+let senderName = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
   // Parsing the Messenger API response
@@ -285,6 +285,7 @@ app.post("/webhook", (req, res) => {
 
     // We retrieve the Facebook user ID of the sender
     sender = messaging.sender.id;
+    senderName = messaging.sender.name;
 
     // We retrieve the user's current session, or create one if it doesn't exist
     // This is needed for our bot to figure out the conversation history
