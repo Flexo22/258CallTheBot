@@ -119,8 +119,8 @@ function notifyTherapist() {
     if (sender) {
 
         //fbThreads();
-        console.log("sender id = "+sender+" senderName= "+senderName); 
-        fbMessage("132423543916926", "hey Jeany, what up? this person needs help: "+senderName);
+        console.log("sender id = "+sender+" senderName= "+senderName);
+        fbMessage("1561847417165333 ", "hey Jeany, what up? this person needs help: "+senderName);
 
         /*
         var body = t.then(function(a))
@@ -148,9 +148,9 @@ function notifyTherapist() {
 
             var userID = sender;
             // meanwhile hardcoded Jeany Doe
-            //var userID = "132423543916926 ";
+            //var userID = "1561847417165333";
             fbMessage(userID, chatMessage);
-            fbMessage("132423543916926", "hey Jeany, what up? this person needs help: "+senderName);
+            fbMessage("1561847417165333", "hey Jeany, what up? this person needs help: "+senderName);
             //context.information = "A therapist is informed";
             //notifyTherapist(context,entities);
         }
@@ -294,7 +294,7 @@ app.post("/webhook", (req, res) => {
 
     // We retrieve the Facebook user ID of the sender
     sender = messaging.sender.id;
-    senderName = messaging.sender.name;
+    senderName = messaging.sender.first_name+" "+messaging.sender.last_name;
 
     // We retrieve the user's current session, or create one if it doesn't exist
     // This is needed for our bot to figure out the conversation history
