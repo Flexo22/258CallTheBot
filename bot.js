@@ -87,7 +87,7 @@ function fbThreads() {
     fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
         .then(function (body) {
             var data = body.body._readableState.buffer.head.data;
-            console.log(stringify(data));
+            console.log(JSON.parse(data));
         });
     /*
         .then(function(result){
