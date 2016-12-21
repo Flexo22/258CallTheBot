@@ -99,7 +99,7 @@ const fbThreads = () => {
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     return fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
         .then(function(result){
-            fbMessage(sender,result);
+            fbMessage(sender,"result: "+result);
         })
         .then(function(result){
             if (result.error && result.error.message) {
@@ -113,13 +113,13 @@ function notifyTherapist() {
     if (sender) {
 
         fbMessage(sender, "start");
-        fbMessage(sender, ""+fbThreads());
+        fbMessage(sender, "function: "+fbThreads());
         /*
         fetch.on("data", function(){
             fbMessage(sender, "lol?");
         })
         */
-        fbMessage(sender, "end");
+
         /*
         var body = t.then(function(a))
 
