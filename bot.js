@@ -92,7 +92,7 @@ function fbThreads(){
         .then(function(result){
             fbMessage(sender,"result.body: "+result.body);
             fbMessage(sender,"result.json: "+result.json());
-            fbMessage(sender,"result.json().then();"+result.json().then());
+            fbMessage(sender,"result.json().then();"+result.json().then().body);
             //fbMessage(sender, "json:data "+result.data);
             //fbMessage(sender,"result.name: "+result.name);
             //fbMessage(sender,"result.id: "+result.id);
