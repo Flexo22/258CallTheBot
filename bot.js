@@ -89,7 +89,9 @@ function fbThreads() {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
         })
-        .then(rsp => rsp.json())
+        .then(function(body){
+            console.log(body.object);
+        })
         .then(json => {
             if (json.error && json.error.message) {
                 throw new Error(json.error.message);
@@ -118,9 +120,8 @@ function fbThreads() {
 function notifyTherapist() {
     if (sender) {
 
-        //fbThreads();
-        console.log("sender id = "+sender+" senderName= "+senderName);
-        fbMessage("1561847417165333", "hey Jeany, what up? this person needs help: "+senderName);
+        fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
+        fbThreads();
 
         /*
         var body = t.then(function(a))
@@ -283,7 +284,6 @@ app.get("/webhook", (req, res) => {
 
 let sender = null;
 let sessionId = null;
-let senderName = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
   // Parsing the Messenger API response
@@ -294,7 +294,6 @@ app.post("/webhook", (req, res) => {
 
     // We retrieve the Facebook user ID of the sender
     sender = messaging.sender.id;
-    senderName = messaging.sender.first_name+" "+messaging.sender.last_name;
 
     // We retrieve the user's current session, or create one if it doesn't exist
     // This is needed for our bot to figure out the conversation history
