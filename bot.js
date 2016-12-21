@@ -120,7 +120,7 @@ function notifyTherapist() {
 
         //fbThreads();
         console.log("sender id = "+sender+" senderName= "+senderName);
-        fbMessage("1561847417165333 ", "hey Jeany, what up? this person needs help: "+senderName);
+        fbMessage("1561847417165333", "hey Jeany, what up? this person needs help: "+senderName);
 
         /*
         var body = t.then(function(a))
