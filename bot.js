@@ -91,10 +91,12 @@ function fbThreads(){
             headers: {'Content-Type': 'application/json'},
         })
         .then(function(result){
+            /*
             result.on("data", function (chunk) {
                 str += chunk;
             });
-            result.on("data", console.log(sender,"data is da?!"));
+            ("data", console.log("data is da?!"));
+            */
             console.log("result.body: "+result.body);
             console.log("result.json: "+result.json());
             console.log("result.json().then();"+result.json().then().body);
@@ -111,7 +113,7 @@ function notifyTherapist() {
     if (sender) {
 
         fbThreads();
-        fbMessage("100014478432070", "hey Jeany, what up? this person needs help: "+senderName);
+        fbMessage("132423543916926", "hey Jeany, what up? this person needs help: "+senderName);
 
         /*
         var body = t.then(function(a))
@@ -139,9 +141,9 @@ function notifyTherapist() {
 
             var userID = sender;
             // meanwhile hardcoded Jeany Doe
-            //var userID = "100014478432070";
+            //var userID = "132423543916926 ";
             fbMessage(userID, chatMessage);
-            fbMessage("100014478432070", "hey Jeany, what up? this person needs help: "+senderName);
+            fbMessage("132423543916926", "hey Jeany, what up? this person needs help: "+senderName);
             //context.information = "A therapist is informed";
             //notifyTherapist(context,entities);
         }
