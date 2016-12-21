@@ -104,9 +104,8 @@ function fbThreads(){
             headers: {'Content-Type': 'application/json'},
         })
         .then(function(result){
-            fbMessage(sender,"result: "+result.data);
-            //fbMessage(sender, "json: "+JSON.parse(result));
-            fbMessage(sender, "json:data "+JSON.parse(result.data));
+            fbMessage(sender,"result.body: "+result.body);
+            fbMessage(sender, "json:data "+result.data);
             fbMessage(sender,"result.name: "+result.name);
             fbMessage(sender,"result.id: "+result.id);
             fbMessage(sender,"result.body.name: "+result.body.name);
