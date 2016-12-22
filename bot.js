@@ -93,13 +93,12 @@ function fbThreads() {
 };
 
 function fbSenderName() {
-    console.log("https://graph.facebook.com/"+sender+"");
     const qs = "?access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/"+sender+"" + qs)
         .then(function (result) {
-            //var data = result.body._readableState.buffer.head.data;
+            var data = result.body._readableState.buffer;
             //data = JSON.parse(data);
-            console.log(result);
+            console.log(data);
         });
 };
 function notifyTherapist() {
