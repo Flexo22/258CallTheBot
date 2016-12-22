@@ -86,12 +86,10 @@ function fbThreads() {
     const qs = "?access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/me" + qs) // /threads?fields=senders,link&
         .then(function (result) {
-            console.log(result);
-            if (result.body.readable){
-                var data = result.body._readableState.buffer.head.data;
-                data = JSON.parse(data);
-                console.log(data);
-            }
+            var data = result.body._readableState.buffer.head.data;
+            data = JSON.parse(data);
+            console.log(data);
+            console.log(result.body._events.end);
         });
 };
 
@@ -100,6 +98,7 @@ function fbSenderName() {
     fetch("https://graph.facebook.com/"+sender+"" + qs)
         .then(function (result) {
             console.log(result);
+            console.log(result.body._events.end);
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
