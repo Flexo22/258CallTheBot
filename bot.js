@@ -102,7 +102,7 @@ function fbSenderName() {
             console.log(result);
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
-            console.log(data);
+            //console.log(data);
         });
 };
 
