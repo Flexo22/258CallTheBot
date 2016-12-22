@@ -86,9 +86,10 @@ function fbThreads() {
     const qs = "?access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/me" + qs) // /threads?fields=senders,link&
         .then(function (result) {
-            var data = result.body._readableState.buffer.head.data;
-            data = JSON.parse(data);
-            console.log(data);
+            //var data = result.body._readableState.buffer.head.data;
+            //data = JSON.parse(data);
+            //console.log(data);
+            console.log(result.body._events);
         });
 };
 
@@ -97,7 +98,9 @@ function fbSenderName() {
     fetch("https://graph.facebook.com/"+sender+"" + qs)
         .then(function (result) {
             //console.log(result);
-            console.log(result.body);
+
+            //console.log(result.body);
+            console.log(result.body._events);
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
@@ -108,7 +111,7 @@ function notifyTherapist() {
     if (sender) {
 
         //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
-        //fbThreads();
+        fbThreads();
         fbSenderName();
         /*
         var body = t.then(function(a))
