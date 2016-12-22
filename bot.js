@@ -88,8 +88,9 @@ function fbThreads() {
         .then(function (result) {
             var data = result.body._readableState.buffer.head.data;
             data = JSON.parse(data);
-            console.log(result);
-            console.log(data);
+            console.log("threads.result: "+result);
+            console.log("threads.data: "+data);
+            console.log("threads._buffer: "+result.body._buffer);
         });
 };
 
@@ -97,10 +98,12 @@ function fbSenderName() {
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/"+sender+"?" + qs)
         .then(function (result) {
+            var error = result.body._buffer;
             var data = result.body._readableState.buffer;
             //data = JSON.parse(data);
             console.log(result);
-            console.log(data);
+            console.log("sender result.body._readableState.buffer: "+result.body._readableState.buffer);
+            console.log("sender result.body._buffer: "+result.body._buffer);
         });
 };
 
