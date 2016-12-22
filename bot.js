@@ -84,29 +84,32 @@ const fbMessage = (id, text) => {
 
 function fbThreads() {
     const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    fetch("https://graph.facebook.com/me/threads?" + qs) // /threads?fields=senders,link&
+    fetch("https://graph.facebook.com/me?" + qs) // /threads?fields=senders,link&
         .then(function (result) {
             var data = result.body._readableState.buffer.head.data;
             data = JSON.parse(data);
+            console.log(result);
             console.log(data);
         });
 };
 
 function fbSenderName() {
-    console.log("https://graph.facebook.com/"+sender+"");
-    const qs = "?access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    fetch("https://graph.facebook.com/"+sender+"" + qs)
+    const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
+    fetch("https://graph.facebook.com/"+sender+"?" + qs)
         .then(function (result) {
-            //var data = result.body._readableState.buffer.head.data;
+            var data = result.body._readableState.buffer;
             //data = JSON.parse(data);
             console.log(result);
+            console.log(data);
         });
 };
+
 function notifyTherapist() {
     if (sender) {
 
         //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
-        //fbThreads();
+        fbThreads();
+        console.log("------------------------------------");
         fbSenderName();
         /*
         var body = t.then(function(a))
