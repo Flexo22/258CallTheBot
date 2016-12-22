@@ -97,7 +97,7 @@ function fbSenderName() {
     fetch("https://graph.facebook.com/"+sender+"" + qs)
         .then(function (result) {
             console.log(result);
-            console.log(result.body._handle.buffer);
+            console.log(JSON.parse(result.body._handle.buffer));
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
