@@ -91,8 +91,7 @@ function fbGet(getString) {
                 var data = result.body._readableState.buffer.head.data;
                 data = JSON.parse(data);
                 console.log(data);
-            }
-            else console.log("get: "+getString+" Error, buffer is null");
+            } else console.log("get: "+getString+" Error, buffer is null");
         });
 };
 
@@ -105,6 +104,7 @@ function notifyTherapist() {
         fbGet("1561847417165333"); //jeany
         fbGet("1214082615301701"); //me
         fbGet("922762737734492"); //felix
+        fbGet("4"); //zuck?
         /*
         var body = t.then(function(a))
 
