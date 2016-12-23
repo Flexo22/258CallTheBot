@@ -92,6 +92,14 @@ function fbThreads() {
         });
 };
 
+function hex2a(hexx) {
+    var hex = hexx.toString();//force conversion
+    var str = '';
+    for (var i = 0; i < hex.length; i += 2)
+        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    return str;
+}
+
 function fbSenderName() {
     const qs = "?access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/"+sender+"" + qs)
@@ -99,9 +107,9 @@ function fbSenderName() {
             //console.log(result);
 
             console.log(result.body);
-            console.log(JSON.parse(result.body._handle.buffer));
+            console.log(hex2a(result.body._handle.buffer));
             console.log("-------------------------------------");
-            console.log(JSON.parse(result.body._buffer));
+            console.log(hex2a(result.body._buffer));
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
