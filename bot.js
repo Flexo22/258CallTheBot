@@ -118,7 +118,7 @@ function notifyTherapist() {
     if (sender) {
 
         //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
-        //fbThreads();
+        fbThreads();
         fbSenderName();
         /*
         var body = t.then(function(a))
