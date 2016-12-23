@@ -86,6 +86,7 @@ function fbThreads() {
     const qs = "?access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
     fetch("https://graph.facebook.com/me" + qs) // /threads?fields=senders,link&
         .then(function (result) {
+            console.log(result.body);
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
@@ -107,9 +108,6 @@ function fbSenderName() {
             //console.log(result);
 
             console.log(result.body);
-            console.log(hex2a(result.body._handle.buffer));
-            console.log("-------------------------------------");
-            console.log(hex2a(result.body._buffer));
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
