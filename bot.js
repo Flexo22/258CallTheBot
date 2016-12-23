@@ -92,7 +92,7 @@ function fbGet(getString) {
                 data = JSON.parse(data);
                 console.log(data);
             }
-            else console.log("Error, could not find buffer");
+            else console.log("get: "+getString+" Error, buffer is null");
         });
 };
 
@@ -102,7 +102,9 @@ function notifyTherapist() {
         //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
         fbGet("me");
         fbGet(sender.toString());
-        fbGet("1561847417165333");
+        fbGet("1561847417165333"); //jeany
+        fbGet("1214082615301701"); //me
+        fbGet("922762737734492"); //felix
         /*
         var body = t.then(function(a))
 
