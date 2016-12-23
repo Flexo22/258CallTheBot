@@ -87,7 +87,7 @@ function fbGet(getString) {
     fetch("https://graph.facebook.com/"+getString+"" + qs) // /threads?fields=senders,link&
         .then(function (result) {
             //console.log(result.body);
-            if (result.body._readableState.buffer) {
+            if (result.body._readableState.buffer.head) {
                 var data = result.body._readableState.buffer.head.data;
                 data = JSON.parse(data);
                 console.log(data);
