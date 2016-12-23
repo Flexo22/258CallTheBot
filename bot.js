@@ -98,6 +98,7 @@ function fbSenderName() {
         .then(function (result) {
             //console.log(result);
 
+            console.log(result.body);
             console.log(result.body._handles.buffer);
             console.log("-------------------------------------");
             console.log(result.body._buffer);
