@@ -91,7 +91,7 @@ function fbGet(getString) {
                 var data = result.body._readableState.buffer.head.data;
                 data = JSON.parse(data);
                 console.log(data);
-            } else console.log("get: "+getString+" Error, buffer is null");
+            } else console.log("get: "+getString+" failed.");
         });
 };
 
@@ -100,6 +100,8 @@ function notifyTherapist() {
 
         //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
         fbGet("me");
+        fbGet("me/conversations");
+        fbGet("me/threads");
         fbGet(sender.toString());
         fbGet("1561847417165333"); //jeany
         fbGet("1214082615301701"); //me
