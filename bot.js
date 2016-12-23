@@ -89,7 +89,6 @@ function fbThreads() {
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
-            console.log(result.body._events);
         });
 };
 
@@ -99,8 +98,7 @@ function fbSenderName() {
         .then(function (result) {
             //console.log(result);
 
-            //console.log(result.body);
-            console.log(result.body._events);
+            console.log(result.body);
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
@@ -111,7 +109,7 @@ function notifyTherapist() {
     if (sender) {
 
         //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
-        fbThreads();
+        //fbThreads();
         fbSenderName();
         /*
         var body = t.then(function(a))
