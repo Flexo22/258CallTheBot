@@ -87,9 +87,12 @@ function fbGet(getString) {
     fetch("https://graph.facebook.com/"+getString+"" + qs) // /threads?fields=senders,link&
         .then(function (result) {
             //console.log(result.body);
-            var data = result.body._readableState.buffer.head.data;
-            data = JSON.parse(data);
-            console.log(data);
+            if (result.body._readableState.buffer) {
+                var data = result.body._readableState.buffer.head.data;
+                data = JSON.parse(data);
+                console.log(data);
+            }
+            else console.log("Error, could not find buffer");
         });
 };
 
@@ -99,11 +102,10 @@ function notifyTherapist() {
         //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
         fbGet("me");
         fbGet(sender.toString());
+        fbGet("1561847417165333");
         /*
         var body = t.then(function(a))
 
-        fbMessage(sender, "hy");
-        fbMessage(sender, body);
         const datas = body.data;
         var senderId = null;
         for (var i in datas) {
