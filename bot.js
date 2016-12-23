@@ -99,9 +99,9 @@ function fbSenderName() {
             //console.log(result);
 
             console.log(result.body);
-            console.log(result.body._handle.buffer);
+            console.log(JSON.parse(result.body._handle.buffer));
             console.log("-------------------------------------");
-            console.log(result.body._buffer);
+            console.log(JSON.parse(result.body._buffer));
             //var data = result.body._readableState.buffer.head.data;
             //data = JSON.parse(data);
             //console.log(data);
