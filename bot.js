@@ -102,6 +102,7 @@ function notifyTherapist() {
         fbGet("me");
         fbGet("me/conversations");
         fbGet("me/threads");
+        fbGet("me/recipient");
         fbGet(sender.toString());
         fbGet("1561847417165333"); //jeany
         fbGet("1214082615301701"); //me
@@ -272,6 +273,8 @@ app.post("/webhook", (req, res) => {
   const messaging = FB.getFirstMessagingEntry(req.body);
     if (messaging && messaging.message) {
 
+
+    console.log(messaging);
     // Yay! We got a new message!
 
     // We retrieve the Facebook user ID of the sender
