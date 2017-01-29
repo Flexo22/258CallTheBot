@@ -85,6 +85,9 @@ function notifyTherapist() {
         const me = FB.getData(encodeURIComponent(FB_USER_TOKEN),"/me", function(data){
             console.log(data);
         });
+        const me = FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"/me", function(data){
+            console.log(data);
+        });
 
 
 
