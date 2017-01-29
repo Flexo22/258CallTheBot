@@ -73,9 +73,11 @@ function notifyTherapist() {
 
         //FB.fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
 
+        console.log("LONG LIVE MY TOKEN");
         if (FB_USER_TOKEN_FLAG) {
             FB.longLiveMyToken(FB_USER_TOKEN, "1214082615301701", FB_APP_SECRET);
         }
+        console.log("END");
 
         /*
         //FB_USER_TOKEN is the token to use to get the information about the threads
