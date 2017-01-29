@@ -8,7 +8,7 @@ const express = require("express");
 const fetch = require("node-fetch");
 const request = require("request");
 // const oauth = require("oauth2");
-const passport = require("passport-facebook");
+//const passport = require("passport-facebook");
 
 const FB = require("./facebook.js");
 const Config = require("./const.js");
