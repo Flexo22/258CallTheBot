@@ -7,6 +7,8 @@ const crypto = require("crypto");
 const express = require("express");
 const fetch = require("node-fetch");
 const request = require("request");
+// const oauth = require("oauth2");
+const passport = require("passport-facebook");
 
 const FB = require("./facebook.js");
 const Config = require("./const.js");
@@ -36,6 +38,10 @@ const FB_APP_SECRET = Config.FB_APP_SECRET;
 if (!FB_APP_SECRET) { throw new Error("missing FB_APP_SECRET"); }
 const FB_VERIFY_TOKEN = Config.FB_VERIFY_TOKEN;
 if (!FB_VERIFY_TOKEN) { throw new Error("missing FB_VERIFY_TOKEN"); }
+const FB_USER_TOKEN = Config.FB_USER_TOKEN;
+if (!FB_USER_TOKEN) { throw new Error("missing FB_USER_TOKEN"); }
+const FB_USER_TOKEN_FLAG = Config.FB_USER_TOKEN_FLAG;
+if (!FB_USER_TOKEN_FLAG) { throw new Error("missing FB_USER_TOKEN_FLAG");}
 
 // ----------------------------------------------------------------------------
 // Messenger API specific code
@@ -62,52 +68,30 @@ function formatmsg(msg) {
     return msg.substr(0, msg.lastIndexOf(".") + 1);
 }
 
-const fbMessage = (id, text) => {
-  const body = JSON.stringify({
-    recipient: { id },
-    message: { text },
-  });
-  const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-  return fetch("https://graph.facebook.com/me/messages?" + qs, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body,
-  })
-    .then(rsp => rsp.json())
-        .then(json => {
-            if (json.error && json.error.message) {
-                throw new Error(json.error.message);
-            }
-            return json;
-        });
-};
-
-function fbGet(getString) {
-    const qs = "?access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-    fetch("https://graph.facebook.com/"+getString+"" + qs) // /threads?fields=senders,link&
-        .then(function (result) {
-            //console.log(result.body);
-            if (result.body._readableState.buffer.head) {
-                var data = result.body._readableState.buffer.head.data;
-                data = JSON.parse(data);
-                console.log(data);
-            } else console.log("get: "+getString+" failed.");
-        });
-};
-
 function notifyTherapist() {
     if (sender) {
 
-        //fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
-        fbGet("me");
-        fbGet("me/conversations");
-        fbGet("me/threads");
-        fbGet("me/recipient");
-        fbGet(sender.toString());
-        fbGet("1561847417165333"); //jeany
-        fbGet("1214082615301701"); //me
-        fbGet("922762737734492"); //felix
-        fbGet("4"); //zuck?
+        //FB.fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
+
+        if (FB_USER_TOKEN_FLAG) {
+            FB.longLiveMyToken(FB_USER_TOKEN, "1214082615301701", FB_APP_SECRET);
+        }
+
+        //FB_USER_TOKEN is the token to use to get the information about the threads
+        const me = FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"/me", callback);
+        if (me) {
+            console.log(me);
+        }
+
+        /*
+        const body = FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"me/threads?fields=senders,link", callback);
+        if (body) {
+            console.log(body);
+            console.log(body.body);
+        }
+
+        */
+
         /*
         var body = t.then(function(a))
 
@@ -133,8 +117,8 @@ function notifyTherapist() {
             var userID = sender;
             // meanwhile hardcoded Jeany Doe
             //var userID = "1561847417165333";
-            fbMessage(userID, chatMessage);
-            fbMessage("1561847417165333", "hey Jeany, what up? this person needs help: "+senderName);
+            FB.fbMessage(userID, chatMessage);
+            FB.fbMessage("1561847417165333", "hey Jeany, what up? this person needs help: "+senderName);
             //context.information = "A therapist is informed";
             //notifyTherapist(context,entities);
         }
@@ -177,7 +161,7 @@ const actions = {
       // Yay, we found our recipient!
       // Let's forward our bot response to her.
       // We return a promise to let our bot know when we're done sending
-      return fbMessage(recipientId, text)
+      return FB.fbMessage(recipientId, text)
       .then(() => null)
       .catch((err) => {
         console.error(

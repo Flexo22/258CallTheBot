@@ -36,6 +36,54 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
+const getData = function(accessToken, apiPath, callback) {
+    var options = {
+        host: 'graph.facebook.com',
+        port: 443,
+        path: encodeURIComponent(apiPath) + '?access_token=' + encodeURIComponent(accessToken), //apiPath example: '/me/friends'
+        method: 'GET'
+    };
+
+    var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
+    var request = https.get(options, function(result){
+        result.setEncoding('utf8');
+        result.on('data', function(chunk){
+            buffer += chunk;
+        });
+
+        result.on('end', function(){
+            callback(buffer);
+        });
+    });
+
+    request.on('error', function(e){
+        console.log('error from facebook.getFbData: ' + e.message)
+    });
+
+    request.end();
+}
+
+function longLiveMyToken(token, appId, clientSecret) {
+    var req = https.request({
+        host: 'graph.facebook.com',
+        path: '/oauth/access_token',
+        method: 'POST'
+    }, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function(chunk) {
+            console.log(chunk);
+        });
+        res.on('end', function() {
+            console.log('status: '+res.status);
+        });
+    });
+    req.end('grant_type=fb_exchange_token'
+        +'&client_id='+encodeURIComponent(appId)
+        +'&client_secret='+encodeURIComponent(clientSecret)
+        +'&fb_exchange_token='+encodeURIComponent(token)
+    );
+};
+
 // See the Webhook reference
 // https://developers.facebook.com/docs/messenger-platform/webhook-reference
 const getFirstMessagingEntry = (body) => {
@@ -55,5 +103,7 @@ const getFirstMessagingEntry = (body) => {
 module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
-  fbReq: fbReq
+  fbReq: fbReq,
+  getData:getData,
+  longLiveMyToken:longLiveMyToken,
 };
