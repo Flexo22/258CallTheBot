@@ -85,7 +85,12 @@ function notifyTherapist() {
         //FB_USER_TOKEN is the token to use to get the information about the threads
         const me = FB.getData(encodeURIComponent(FB_USER_TOKEN),"/me", callback);
         if (me) {
+            console.log("ME ");
             console.log(me);
+        }
+        if (callback){
+            console.log("CALLBACK ");
+            console.log(callback);
         }
 
 
