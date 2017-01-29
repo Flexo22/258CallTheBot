@@ -53,7 +53,7 @@ const getData = function(accessToken, apiPath, callback) {
         });
 
         result.on('end', function(){
-            callback(buffer);
+            callback = buffer;
         });
     });
 
