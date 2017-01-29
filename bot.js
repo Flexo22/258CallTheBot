@@ -77,11 +77,14 @@ function notifyTherapist() {
             FB.longLiveMyToken(FB_USER_TOKEN, "1214082615301701", FB_APP_SECRET);
         }
 
+        /*
         //FB_USER_TOKEN is the token to use to get the information about the threads
         const me = FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"/me", callback);
         if (me) {
             console.log(me);
         }
+        */
+
 
         /*
         const body = FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"me/threads?fields=senders,link", callback);
