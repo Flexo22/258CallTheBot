@@ -263,7 +263,7 @@ app.post("/webhook", (req, res) => {
     if (messaging && messaging.message) {
 
 
-    console.log(messaging);
+    //console.log(messaging);
     // Yay! We got a new message!
 
     // We retrieve the Facebook user ID of the sender

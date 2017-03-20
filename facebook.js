@@ -51,6 +51,7 @@ const getData = function(accessToken, apiPath) {
         result.on('data', function(chunk){
             buffer += chunk;
             console.log(buffer);
+            return buffer;
         });
     });
 
