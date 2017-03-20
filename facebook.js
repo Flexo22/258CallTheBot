@@ -53,7 +53,7 @@ const getData = function(accessToken, apiPath) {
             //console.log(buffer);
         });
         result.on('end', function(){
-            console.log("END IS NEAR");
+            console.log("END IS NEAR.."+buffer);
             return buffer;
         });
     });
