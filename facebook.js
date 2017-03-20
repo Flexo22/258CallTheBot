@@ -44,14 +44,13 @@ const getData = function(accessToken, apiPath) {
         path: "/v2.6/"+apiPath + '&access_token=' + accessToken, //apiPath example: '/me/friends'
         method: 'GET'
     };
-    console.log(options.path);
 
     var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
     var request = https.get(options, function(result){
         result.setEncoding('utf8');
         result.on('data', function(chunk){
             buffer += chunk;
-            console.log(chunk);
+            console.log(buffer);
         });
 
         result.on('end', function(){
