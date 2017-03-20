@@ -50,7 +50,7 @@ const getData = function(accessToken, apiPath) {
         result.setEncoding('utf8');
         result.on('data', function(chunk){
             buffer += chunk;
-            console.log(buffer);
+            //console.log(buffer); funktioniert
         });
 
         result.on('end', function(){
