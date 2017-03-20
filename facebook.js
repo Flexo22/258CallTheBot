@@ -55,7 +55,7 @@ const getData = function(accessToken, apiPath) {
         });
     });
 
-    result.on('end', function(){
+    request.on('end', function(){
         return buffer;
     });
 
