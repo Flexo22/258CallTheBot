@@ -277,7 +277,7 @@ app.post("/webhook", (req, res) => {
     const msg = messaging.message.text;
     const atts = messaging.message.attachments;
 
-    var name = FB.getData(FB_PAGE_TOKEN,sender+"?fields=first_name,last_name"); //.then(function (res) {
+    FB.getData(FB_PAGE_TOKEN,sender+"?fields=first_name,last_name"); //.then(function (res) {
     console.log(name);
 
     /*    var name = res.buffer;
