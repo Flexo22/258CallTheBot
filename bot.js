@@ -71,8 +71,6 @@ function formatmsg(msg) {
 function notifyTherapist() {
     if (sender) {
 
-        //FB.fbMessage("1561847417165333", "hey Jeany, what up? this one person needs help, but I can't figure the name out. Poor me.");
-
         /*
         console.log("LONG LIVE MY TOKEN");
         if (FB_USER_TOKEN_FLAG) {
@@ -82,14 +80,13 @@ function notifyTherapist() {
 
         */
         //FB_USER_TOKEN is the token to use to get the information about the threads
+        /*
         FB.getData(encodeURIComponent(FB_USER_TOKEN),"/me", function(data){
             console.log(data);
         });
         FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"/me", function(data){
             console.log(data);
         });
-
-
 
         /*
         const body = FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"me/threads?fields=senders,link", callback);
@@ -266,7 +263,7 @@ app.post("/webhook", (req, res) => {
     if (messaging && messaging.message) {
 
 
-    console.log(req);
+    console.log(messaging);
     // Yay! We got a new message!
 
     // We retrieve the Facebook user ID of the sender
