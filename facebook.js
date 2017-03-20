@@ -60,8 +60,6 @@ const getData = function(accessToken, apiPath) {
     });
     return buffer;
 
-
-
     request.on('error', function(e){
         console.log('error from facebook.getFbData: ' + e.message)
     });
