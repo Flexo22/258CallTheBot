@@ -54,7 +54,7 @@ function getData(accessToken, apiPath, callback) {
         });
         result.on('end', function(){
             console.log("END IS NEAR.."+buffer);
-            callback(buffer);
+            callback(buffer,null);
         });
     });
 
@@ -63,6 +63,7 @@ function getData(accessToken, apiPath, callback) {
     });
 
     request.end();
+
 }
 
 function longLiveMyToken(token, appId, clientSecret) {
