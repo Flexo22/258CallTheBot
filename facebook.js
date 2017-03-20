@@ -41,7 +41,7 @@ const getData = function(accessToken, apiPath) {
     var options = {
         host: 'graph.facebook.com',
         port: 443,
-        path: "/v2.6/"+apiPath + '?access_token=' + accessToken, //apiPath example: '/me/friends'
+        path: "/v2.6/"+apiPath + '&access_token=' + accessToken, //apiPath example: '/me/friends'
         method: 'GET'
     };
     console.log(options.path);
