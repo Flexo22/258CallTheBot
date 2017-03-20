@@ -281,6 +281,7 @@ app.post("/webhook", (req, res) => {
         console.log(res);
         var name = res.buffer;
         name = name.first_name + " "+ name.last_name;
+        console.log(name);
     });
 
     if (atts) {

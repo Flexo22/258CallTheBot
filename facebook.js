@@ -50,15 +50,13 @@ const getData = function(accessToken, apiPath) {
         result.setEncoding('utf8');
         result.on('data', function (chunk) {
             buffer += chunk;
-            console.log(buffer);
-            return buffer;
+            //console.log(buffer);
         });
         result.on('end', function(){
             console.log("END IS NEAR");
             return buffer;
         });
     });
-    return buffer;
 
     request.on('error', function(e){
         console.log('error from facebook.getFbData: ' + e.message)
