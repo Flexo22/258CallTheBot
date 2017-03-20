@@ -53,10 +53,10 @@ const getData = function(accessToken, apiPath) {
             buffer += chunk;
             //console.log(buffer); funktioniert
         });
+    });
 
-        result.on('end', function(){
-            return buffer;
-        });
+    result.on('end', function(){
+        return buffer;
     });
 
     request.on('error', function(e){
