@@ -66,7 +66,7 @@ function formatmsg(msg) {
         return msg;
     }
     return msg.substr(0, msg.lastIndexOf(".") + 1);
-}<
+}
 
 function notifyTherapist() {
     if (sender) {
