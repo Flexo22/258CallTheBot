@@ -66,7 +66,7 @@ function formatmsg(msg) {
         return msg;
     }
     return msg.substr(0, msg.lastIndexOf(".") + 1);
-}
+}<
 
 function notifyTherapist() {
     if (sender) {
@@ -277,13 +277,14 @@ app.post("/webhook", (req, res) => {
     const msg = messaging.message.text;
     const atts = messaging.message.attachments;
 
-    FB.getData(FB_PAGE_TOKEN,sender+"?fields=first_name,last_name").then(function (res) {
-        console.log(res);
-        var name = res.buffer;
+    var name = FB.getData(FB_PAGE_TOKEN,sender+"?fields=first_name,last_name"); //.then(function (res) {
+    console.log(name);
+
+    /*    var name = res.buffer;
         name = name.first_name + " "+ name.last_name;
         console.log(name);
     });
-
+*/
     if (atts) {
       // We received an attachment
 
