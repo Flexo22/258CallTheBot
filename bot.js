@@ -149,7 +149,7 @@ const actions = {
                 var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=1&prop=extracts&exintro&explaintext&exsentences=5&exlimit=max&gsrsearch=" + searchQuery;
 
                 var request = require("request");
-                return request(queryUrl, function (error, response, body) {
+                request(queryUrl, function (error, response, body) {
                     //statusCode 200 = "OK"
                     if (!error && response.statusCode === 200) {
                         try {
@@ -173,13 +173,7 @@ const actions = {
                     }
                     botAnswer = context.information;
                     return resolve(context);
-                }).then(() => null)
-                    .catch((err) => {
-                        console.error(
-                            'Oops! An error occurred while trying to figure out the name',
-                            err.stack || err
-                        );
-                    });
+                })
             } else {
               context.information = "searchQuery not found";
             }
