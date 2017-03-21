@@ -74,12 +74,22 @@ function notifyTherapist() {
             else {
                 console.log("NO NAME FOUND .. NOT GOOD :(");
             }
-        });
+        }).then(() => null)
+            .catch((err) => {
+                console.error(
+                    'Oops! An error occurred while trying to figure out the name',
+                    err.stack || err
+                );
+            });
     }
 }
 
 // ----------------------------------------------------------------------------
 // Wit.ai bot specific code
+
+//Global Variables
+var searchQuery;
+var botAnswer;
 
 // This will contain all user sessions.
 // Each session has an entry:
@@ -134,10 +144,12 @@ const actions = {
     getInformation({context,entities}) {
         //notifyTherapist();
         return new Promise(function(resolve,reject){
-            var searchQuery = firstEntityValue(entities,"search_query");
+
+            searchQuery = firstEntityValue(entities,"search_query");
             if (searchQuery){
                 var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=1&prop=extracts&exintro&explaintext&exsentences=5&exlimit=max&gsrsearch=" + searchQuery;
 
+                var request = require("request");
                 request(queryUrl, function (error, response, body) {
                     //statusCode 200 = "OK"
                     if (!error && response.statusCode === 200) {
@@ -151,7 +163,7 @@ const actions = {
                                 context.information = text;
                             }
                             else {
-                                context.information = "May refer to: Sorry I didn't get that.";
+                                context.information = "Sorry I didn't get that.";
                             }
                         }
                         catch (err) {
@@ -160,15 +172,34 @@ const actions = {
                     } else {
                         context.information = "Connection Error: "+ response.statusCode;
                     }
+                    botAnswer = context.information;
                     return resolve(context);
                 });
             } else {
               context.information = "searchQuery not found";
             }
         });
+    },
+    // documentInquiryInterventionNeeded bot executes
+    documentInquiryInterventionNeeded({context,entities}) {
+        return new Promise(function(resolve,reject){
+            Config.docWriteIssue(
+                "getInformation: " + searchQuery,
+                "## The user asked about: _" + searchQuery +"_\n\n :confused: :question: \n\n ## The bot was unable to provide an answer. :pensive:",
+                [ "getInformation", "intervention needed" ]);
+            return resolve(context);
+        });
+    },
+    // documentInquiryClosed bot executes
+    documentInquiryClosed({context,entities}) {
+        return new Promise(function(resolve,reject){
+            Config.docWriteIssue(
+                "getInformation: " + searchQuery,
+                "## The user asked about: _" + searchQuery +"_\n\n :confused: :question: \n\n ## This is the answer of the bot:\n\n" + botAnswer +":smile:",
+                [ "getInformation", "closed" ]);
+            return resolve(context);
+        });
     }
-  // You should implement your custom actions here
-  // See https://wit.ai/docs/quickstart
 };
 
 // Setting up our bot
@@ -209,8 +240,6 @@ app.post("/webhook", (req, res) => {
     const messaging = FB.getFirstMessagingEntry(req.body);
     if (messaging && messaging.message) {
 
-
-        //console.log(messaging);
         // Yay! We got a new message!
 
         // We retrieve the Facebook user ID of the sender
