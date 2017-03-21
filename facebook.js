@@ -56,7 +56,6 @@ function getData (apiPath,callback) {
             return callback(buffer);
         });
         result.on('end', function () {
-            buffer = JSON.parse(buffer);
             var b = JSON.parse(buffer);
             console.log("NAME " + b.first_name + " " + b.last_name);
             return callback(buffer);
