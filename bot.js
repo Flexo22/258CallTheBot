@@ -71,10 +71,8 @@ function formatmsg(msg) {
 function notifyTherapist() {
     if (sender) {
 
-        FB.getData(sender + '?fields=first_name,last_name&access_token=' +FB_PAGE_TOKEN, function(result){
-            console.log("RESULT: "+result);
-        });
-        if (FB.name) {
+        const name = yield FB.getData(sender + '?fields=first_name,last_name&access_token=' +FB_PAGE_TOKEN);
+        if (name) {
             console.log("FUCKING NAME FUCK YES " + name);
         }
         else {

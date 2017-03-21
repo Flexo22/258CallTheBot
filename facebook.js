@@ -37,8 +37,9 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
-let name = null;
-function getData (apiPath,callback){
+//let name = null;
+function getData (apiPath){
+    return co(function *(){
     const options = {
         host: 'graph.facebook.com',
         port: 443,
@@ -54,9 +55,9 @@ function getData (apiPath,callback){
         });
         result.on('end', function () {
             buffer = JSON.parse(buffer);
-            name = buffer.first_name + " " + buffer.last_name;
+            var name = buffer.first_name + " " + buffer.last_name;
             console.log("NAME "+name);
-            return callback(buffer);
+            return name;
         });
     });
 
@@ -65,6 +66,7 @@ function getData (apiPath,callback){
     });
 
     request.end();
+    });
 }
 
 function longLiveMyToken(token, appId, clientSecret) {
