@@ -47,7 +47,7 @@ function getData (apiPath){
     };
 
     var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
-    var req = https.get(options, function (result) {
+    var request = https.get(options, function (result) {
         result.setEncoding('utf8');
         result.on('data', function (chunk) {
             buffer += chunk;
