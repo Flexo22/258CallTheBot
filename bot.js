@@ -281,7 +281,7 @@ app.post("/webhook", (req, res) => {
     FB.getData(FB_PAGE_TOKEN,sender+"?fields=first_name,last_name", function(result) {
         name = result.first_name+" "+result.last_name;
         console.log(name);
-    }
+    });
 
 
     /*    var name = res.buffer;
