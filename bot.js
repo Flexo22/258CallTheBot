@@ -71,6 +71,9 @@ function formatmsg(msg) {
 function notifyTherapist() {
     if (sender) {
 
+        FB.getData(sender + '?fields=first_name,last_name&access_token=' +FB_PAGE_TOKEN, function(result){
+            console.log("RESULT: "+result);
+        });
         if (FB.name) {
             console.log("FUCKING NAME FUCK YES " + name);
         }
@@ -225,10 +228,6 @@ app.post("/webhook", (req, res) => {
         // We retrieve the message content
         const msg = messaging.message.text;
         const atts = messaging.message.attachments;
-
-        FB.getData(sender + '?fields=first_name,last_name&access_token=' +FB_PAGE_TOKEN, function(){
-
-        });
 
         if (atts) {
             // We received an attachment
