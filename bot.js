@@ -7,7 +7,6 @@ const crypto = require("crypto");
 const express = require("express");
 const fetch = require("node-fetch");
 const request = require("request");
-const https = require("https");
 // const oauth = require("oauth2");
 //const passport = require("passport-facebook");
 
@@ -72,6 +71,9 @@ function formatmsg(msg) {
 function notifyTherapist() {
     if (sender) {
 
+        if (FB.name){
+            console("FUCKING NAME FUCK YES "+ name)
+        }
         /*
         console.log("LONG LIVE MY TOKEN");
         if (FB_USER_TOKEN_FLAG) {
@@ -257,7 +259,6 @@ app.get("/webhook", (req, res) => {
 
 let sender = null;
 let sessionId = null;
-let name = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
     // Parsing the Messenger API response
@@ -281,25 +282,6 @@ app.post("/webhook", (req, res) => {
 
         FB.setOptions(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN);
 
-        var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
-        var req = https.get(FB.options, function (result) {
-            result.setEncoding('utf8');
-            result.on('data', function (chunk) {
-                buffer += chunk;
-            });
-            result.on('end', function () {
-                console.log("BUFFERR "+buffer);
-                name = buffer.first_name + " " + buffer.last_name;
-                console.log("NAME "+name);
-            });
-        });
-
-        req.on('error', function (e) {
-            console.log('error from facebook.getFbData: ' + e.message)
-            //return null;
-        });
-
-        req.end();
 
         if (atts) {
             // We received an attachment

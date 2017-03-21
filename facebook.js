@@ -37,15 +37,34 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
-let options = null;
-function setOptions(apiPath){
-    options = {
+let name = null;
+function getData (apiPath){
+    const options = {
         host: 'graph.facebook.com',
         port: 443,
-        path: '/v2.6/'+apiPath, //apiPath example: '/me/friends'
+        path: '/v2.8/'+apiPath,
         method: 'GET'
     };
-};
+
+    var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
+    var req = https.get(options, function (result) {
+        result.setEncoding('utf8');
+        result.on('data', function (chunk) {
+            buffer += chunk;
+        });
+        result.on('end', function () {
+            console.log("BUFFERR "+buffer);
+            name = buffer.first_name + " " + buffer.last_name;
+            console.log("NAME "+name);
+        });
+    });
+
+    request.on('error', function (e) {
+        console.log('error from facebook.getFbData: ' + e.message)
+    });
+
+    request.end();
+}
 
 function longLiveMyToken(token, appId, clientSecret) {
     var req = https.request({
@@ -88,7 +107,7 @@ module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
   fbReq: fbReq,
-  options : options,
-  setOptions : setOptions,
+  getData : getData,
+  name : name,
   longLiveMyToken:longLiveMyToken,
 };
