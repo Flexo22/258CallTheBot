@@ -141,7 +141,7 @@ const actions = {
 
     // getInformation bot executes
     getInformation({context,entities}) {
-        //notifyTherapist();
+        notifyTherapist();
         return new Promise(function(resolve,reject){
 
             searchQuery = firstEntityValue(entities,"search_query");
