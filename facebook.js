@@ -113,6 +113,6 @@ module.exports = {
   fbMessage: fbMessage,
   fbReq: fbReq,
   getData : getData,
-  name : name,
+  //name : name,
   longLiveMyToken:longLiveMyToken,
 };
