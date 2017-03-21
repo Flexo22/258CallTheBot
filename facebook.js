@@ -54,6 +54,7 @@ function getData (apiPath){
         });
         result.on('end', function () {
             console.log("BUFFERR "+buffer);
+            buffer = JSON.parse(buffer);
             name = buffer.first_name + " " + buffer.last_name;
             console.log("NAME "+name);
         });
