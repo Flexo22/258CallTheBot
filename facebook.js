@@ -54,17 +54,18 @@ const getData = (apiPath) => {
         });
         result.on('end', function(){
             console.log("END IS NEAR.."+buffer);
-            callback(buffer);
+            //callback(buffer);
             return buffer;
         });
     });
 
     request.on('error', function(e){
         console.log('error from facebook.getFbData: ' + e.message)
+        return null;
     });
 
     request.end();
-
+    return "WTF";
 }
 
 function longLiveMyToken(token, appId, clientSecret) {
