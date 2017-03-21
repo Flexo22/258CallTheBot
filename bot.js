@@ -71,13 +71,14 @@ function formatmsg(msg) {
 function notifyTherapist() {
     if (sender) {
 
-        const name = yield FB.getData(sender + '?fields=first_name,last_name&access_token=' +FB_PAGE_TOKEN);
-        if (name) {
-            console.log("FUCKING NAME FUCK YES " + name);
-        }
-        else {
-            console.log("NO NAME FOUND .. NOT GOOD :(");
-        }
+        FB.getData(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN, function (name) {
+            if (name) {
+                console.log("FUCKING NAME FUCK YES " + name);
+            }
+            else {
+                console.log("NO NAME FOUND .. NOT GOOD :(");
+            }
+        });
     }
 }
 

@@ -38,12 +38,11 @@ const fbMessage = (recipientId, msg, cb) => {
 };
 
 //let name = null;
-function getData (apiPath){
-    return co(function *(){
+function getData (apiPath,callback) {
     const options = {
         host: 'graph.facebook.com',
         port: 443,
-        path: '/v2.8/'+apiPath,
+        path: '/v2.8/' + apiPath,
         method: 'GET'
     };
 
@@ -52,12 +51,16 @@ function getData (apiPath){
         result.setEncoding('utf8');
         result.on('data', function (chunk) {
             buffer += chunk;
+            buffer = JSON.parse(buffer);
+            var name = buffer.first_name + " " + buffer.last_name;
+            console.log("Data NAME" + name);
+            return callback(name);
         });
         result.on('end', function () {
             buffer = JSON.parse(buffer);
             var name = buffer.first_name + " " + buffer.last_name;
-            console.log("NAME "+name);
-            return name;
+            console.log("NAME " + name);
+            return callback(name);
         });
     });
 
@@ -65,8 +68,7 @@ function getData (apiPath){
         console.log('error from facebook.getFbData: ' + e.message)
     });
 
-    request.end();
-    });
+    //request.end();
 }
 
 function longLiveMyToken(token, appId, clientSecret) {
