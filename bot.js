@@ -80,7 +80,7 @@ function notifyTherapist() {
             else {
                 console.log("NO NAME FOUND .. NOT GOOD :(");
             }
-        });
+        }).catch();
     }
 }
 
