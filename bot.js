@@ -287,15 +287,9 @@ app.post("/webhook", (req, res) => {
         else console.log("NO OBJECT WTF");
     });
      */
-        console.log(name);
 
+    console.log(name);
 
-
-    /*    var name = res.buffer;
-        name = name.first_name + " "+ name.last_name;
-        console.log(name);
-    });
-*/
     if (atts) {
       // We received an attachment
 
