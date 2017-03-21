@@ -37,7 +37,7 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
-const getData = (apiPath) => {
+function getData(apiPath, callback) {
     var options = {
         host: 'graph.facebook.com',
         port: 443,
@@ -50,22 +50,21 @@ const getData = (apiPath) => {
         result.setEncoding('utf8');
         result.on('data', function (chunk) {
             buffer += chunk;
-            console.log(buffer);
         });
         result.on('end', function(){
             console.log("END IS NEAR.."+buffer);
-            //callback(buffer);
-            return buffer;
+            callback(buffer);
+            //return buffer;
         });
     });
 
     request.on('error', function(e){
         console.log('error from facebook.getFbData: ' + e.message)
-        return null;
+        //return null;
     });
 
     request.end();
-    return "WTF";
+    //return "WTF";
 }
 
 function longLiveMyToken(token, appId, clientSecret) {

@@ -279,14 +279,14 @@ app.post("/webhook", (req, res) => {
     const atts = messaging.message.attachments;
 
 
-    name = FB.getData(sender+'?fields=first_name,last_name&access_token='+FB_PAGE_TOKEN); /*, function(result) {
+    FB.getData(sender+'?fields=first_name,last_name&access_token='+FB_PAGE_TOKEN, function(result) {
         if (result) {
+            console.log('result '+result);
             name = result.first_name + " " + result.last_name;
             console.log(name);
         }
         else console.log("NO OBJECT WTF");
     });
-     */
 
     console.log(name);
 
