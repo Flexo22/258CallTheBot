@@ -68,7 +68,7 @@ function getData (apiPath,callback) {
         console.log('error from facebook.getFbData: ' + e.message)
     });
 
-    //request.end();
+    request.end();
 }
 
 function longLiveMyToken(token, appId, clientSecret) {
