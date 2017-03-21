@@ -37,7 +37,7 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
-function getData(apiPath,callback) {
+const getData = (apiPath) => {
     var options = {
         host: 'graph.facebook.com',
         port: 443,
@@ -55,6 +55,7 @@ function getData(apiPath,callback) {
         result.on('end', function(){
             console.log("END IS NEAR.."+buffer);
             callback(buffer);
+            return buffer;
         });
     });
 
@@ -107,6 +108,6 @@ module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
   fbReq: fbReq,
-  getData:getData,
+  getData : getData,
   longLiveMyToken:longLiveMyToken,
 };
