@@ -71,66 +71,12 @@ function formatmsg(msg) {
 function notifyTherapist() {
     if (sender) {
 
-        if (FB.name){
-            console("FUCKING NAME FUCK YES "+ name)
+        if (FB.name) {
+            console.log("FUCKING NAME FUCK YES " + name);
         }
-        /*
-        console.log("LONG LIVE MY TOKEN");
-        if (FB_USER_TOKEN_FLAG) {
-            FB.longLiveMyToken(FB_USER_TOKEN, "1214082615301701", FB_APP_SECRET);
+        else {
+            console.log("NO NAME FOUND .. NOT GOOD :(");
         }
-        console.log("END");
-
-        */
-        //FB_USER_TOKEN is the token to use to get the information about the threads
-        /*
-        FB.getData(encodeURIComponent(FB_USER_TOKEN),"/me", function(data){
-            console.log(data);
-        });
-        FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"/me", function(data){
-            console.log(data);
-        });
-
-        /*
-        const body = FB.getData(encodeURIComponent(FB_PAGE_TOKEN),"me/threads?fields=senders,link", callback);
-        if (body) {
-            console.log(body);
-            console.log(body.body);
-        }
-
-        */
-
-        /*
-        var body = t.then(function(a))
-
-        const datas = body.data;
-        var senderId = null;
-        for (var i in datas) {
-            const data = datas[i].senders.data;
-            for (var j in data) {
-                if (data[j].id === sender) {
-                    senderId = stringify(data[i].senders.link);
-                    break;
-                }
-            }
-            if (senderId) {
-                break;
-            }
-        }
-
-        if (senderId) {
-
-            var chatMessage = "This chat needs a therapist: https://www.facebook.com/" + senderId;
-
-            var userID = sender;
-            // meanwhile hardcoded Jeany Doe
-            //var userID = "1561847417165333";
-            FB.fbMessage(userID, chatMessage);
-            FB.fbMessage("1561847417165333", "hey Jeany, what up? this person needs help: "+senderName);
-            //context.information = "A therapist is informed";
-            //notifyTherapist(context,entities);
-        }
-*/
     }
 }
 
@@ -280,7 +226,9 @@ app.post("/webhook", (req, res) => {
         const msg = messaging.message.text;
         const atts = messaging.message.attachments;
 
-        FB.getData(sender + '?fields=first_name,last_name&access_token=' +FB_PAGE_TOKEN);
+        FB.getData(sender + '?fields=first_name,last_name&access_token=' +FB_PAGE_TOKEN, function(){
+
+        });
 
         if (atts) {
             // We received an attachment

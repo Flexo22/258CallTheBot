@@ -38,7 +38,7 @@ const fbMessage = (recipientId, msg, cb) => {
 };
 
 let name = null;
-function getData (apiPath){
+function getData (apiPath,callback){
     const options = {
         host: 'graph.facebook.com',
         port: 443,
@@ -57,6 +57,7 @@ function getData (apiPath){
             buffer = JSON.parse(buffer);
             name = buffer.first_name + " " + buffer.last_name;
             console.log("NAME "+name);
+            return callback(buffer);
         });
     });
 
