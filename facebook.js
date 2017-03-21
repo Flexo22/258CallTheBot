@@ -53,7 +53,7 @@ function getData(apiPath, callback) {
         });
         result.on('end', function(){
             console.log("END IS NEAR.."+buffer);
-            callback(buffer);
+            return callback(buffer);
             //return buffer;
         });
     });
