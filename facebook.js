@@ -37,11 +37,11 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
-function getData(accessToken, apiPath,callback) {
+function getData(apiPath,callback) {
     var options = {
         host: 'graph.facebook.com',
         port: 443,
-        path: "/v2.6/"+apiPath + '&access_token=' + accessToken, //apiPath example: '/me/friends'
+        path: '/v2.6/'+apiPath, //apiPath example: '/me/friends'
         method: 'GET'
     };
 
@@ -50,7 +50,7 @@ function getData(accessToken, apiPath,callback) {
         result.setEncoding('utf8');
         result.on('data', function (chunk) {
             buffer += chunk;
-            //console.log(buffer);
+            console.log(buffer);
         });
         result.on('end', function(){
             console.log("END IS NEAR.."+buffer);
