@@ -7,8 +7,6 @@ const crypto = require("crypto");
 const express = require("express");
 const fetch = require("node-fetch");
 const request = require("request");
-// const oauth = require("oauth2");
-//const passport = require("passport-facebook");
 
 const FB = require("./facebook.js");
 const Config = require("./const.js");
@@ -38,10 +36,6 @@ const FB_APP_SECRET = Config.FB_APP_SECRET;
 if (!FB_APP_SECRET) { throw new Error("missing FB_APP_SECRET"); }
 const FB_VERIFY_TOKEN = Config.FB_VERIFY_TOKEN;
 if (!FB_VERIFY_TOKEN) { throw new Error("missing FB_VERIFY_TOKEN"); }
-const FB_USER_TOKEN = Config.FB_USER_TOKEN;
-if (!FB_USER_TOKEN) { throw new Error("missing FB_USER_TOKEN"); }
-const FB_USER_TOKEN_FLAG = Config.FB_USER_TOKEN_FLAG;
-if (!FB_USER_TOKEN_FLAG) { throw new Error("missing FB_USER_TOKEN_FLAG");}
 
 // ----------------------------------------------------------------------------
 // Messenger API specific code

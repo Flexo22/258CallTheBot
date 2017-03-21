@@ -37,7 +37,6 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
-//let name = null;
 function getData (apiPath,callback) {
     const options = {
         host: 'graph.facebook.com',
@@ -53,8 +52,6 @@ function getData (apiPath,callback) {
             buffer += chunk;
         });
         result.on('end', function () {
-            //var b = JSON.parse(buffer);
-            //console.log("NAME " + b.first_name + " " + b.last_name);
             return callback(buffer);
         });
     });
@@ -65,27 +62,6 @@ function getData (apiPath,callback) {
 
     request.end();
 }
-
-function longLiveMyToken(token, appId, clientSecret) {
-    var req = https.request({
-        host: 'graph.facebook.com',
-        path: '/oauth/access_token',
-        method: 'POST'
-    }, function(res) {
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) {
-            console.log(chunk);
-        });
-        res.on('end', function() {
-            console.log('status: '+res.status);
-        });
-    });
-    req.end('grant_type=fb_exchange_token'
-        +'&client_id='+encodeURIComponent(appId)
-        +'&client_secret='+encodeURIComponent(clientSecret)
-        +'&fb_exchange_token='+encodeURIComponent(token)
-    );
-};
 
 // See the Webhook reference
 // https://developers.facebook.com/docs/messenger-platform/webhook-reference
@@ -108,6 +84,4 @@ module.exports = {
   fbMessage: fbMessage,
   fbReq: fbReq,
   getData : getData,
-  //name : name,
-  longLiveMyToken:longLiveMyToken,
 };
