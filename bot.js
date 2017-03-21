@@ -68,7 +68,7 @@ function notifyTherapist() {
             if (buffer) {
                 buffer = JSON.parse(buffer);
                 var name = buffer.first_name + " " + buffer.last_name;
-                console.log("You name is: " + name);
+                console.log("Your name is: " + name);
             }
             else {
                 console.log("NO NAME FOUND .. NOT GOOD :(");
