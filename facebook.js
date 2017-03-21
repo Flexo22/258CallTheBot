@@ -51,14 +51,15 @@ function getData (apiPath,callback) {
         result.setEncoding('utf8');
         result.on('data', function (chunk) {
             buffer += chunk;
-            console.log("Data NAME" + name);
-            return callback(name);
+            var b = JSON.parse(buffer);
+            console.log("NAME DATA" + b.first_name + " " + b.last_name);
+            return callback(buffer);
         });
         result.on('end', function () {
             buffer = JSON.parse(buffer);
-            var name = buffer.first_name + " " + buffer.last_name;
-            console.log("NAME " + name);
-            return callback(name);
+            var b = JSON.parse(buffer);
+            console.log("NAME " + b.first_name + " " + b.last_name);
+            return callback(buffer);
         });
     });
 
