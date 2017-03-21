@@ -37,35 +37,15 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
-function getData(apiPath, callback) {
-    var options = {
+let options = null;
+function setOptions(apiPath){
+    options = {
         host: 'graph.facebook.com',
         port: 443,
         path: '/v2.6/'+apiPath, //apiPath example: '/me/friends'
         method: 'GET'
     };
-
-    var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
-    var request = https.get(options, function (result) {
-        result.setEncoding('utf8');
-        result.on('data', function (chunk) {
-            buffer += chunk;
-        });
-        result.on('end', function(){
-            console.log("END IS NEAR.."+buffer);
-            return callback(buffer);
-            //return buffer;
-        });
-    });
-
-    request.on('error', function(e){
-        console.log('error from facebook.getFbData: ' + e.message)
-        //return null;
-    });
-
-    request.end();
-    //return "WTF";
-}
+};
 
 function longLiveMyToken(token, appId, clientSecret) {
     var req = https.request({
@@ -108,6 +88,7 @@ module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
   fbReq: fbReq,
-  getData : getData,
+  options : options,
+  setOptions : setOptions,
   longLiveMyToken:longLiveMyToken,
 };

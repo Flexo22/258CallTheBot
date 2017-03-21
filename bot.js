@@ -259,77 +259,86 @@ let sessionId = null;
 let name = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
-  // Parsing the Messenger API response
-  const messaging = FB.getFirstMessagingEntry(req.body);
+    // Parsing the Messenger API response
+    const messaging = FB.getFirstMessagingEntry(req.body);
     if (messaging && messaging.message) {
 
 
-    //console.log(messaging);
-    // Yay! We got a new message!
+        //console.log(messaging);
+        // Yay! We got a new message!
 
-    // We retrieve the Facebook user ID of the sender
-    sender = messaging.sender.id;
+        // We retrieve the Facebook user ID of the sender
+        sender = messaging.sender.id;
 
-    // We retrieve the user's current session, or create one if it doesn't exist
-    // This is needed for our bot to figure out the conversation history
-    sessionId = findOrCreateSession(sender);
+        // We retrieve the user's current session, or create one if it doesn't exist
+        // This is needed for our bot to figure out the conversation history
+        sessionId = findOrCreateSession(sender);
 
-    // We retrieve the message content
-    const msg = messaging.message.text;
-    const atts = messaging.message.attachments;
+        // We retrieve the message content
+        const msg = messaging.message.text;
+        const atts = messaging.message.attachments;
 
+        FB.setOptions(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN);
 
-    FB.getData(sender+'?fields=first_name,last_name&access_token='+FB_PAGE_TOKEN, function(result) {
-        if (result) {
-            console.log('result '+result);
-            name = result.first_name + " " + result.last_name;
-            console.log(name);
+        var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
+        var request = https.get(FB.options, function (result) {
+            result.setEncoding('utf8');
+            result.on('data', function (chunk) {
+                buffer += chunk;
+            });
+            result.on('end', function () {
+                name = buffer.first_name + " " + buffer.last_name;
+                console.log("NAME "+name);
+            });
+        });
+
+        request.on('error', function (e) {
+            console.log('error from facebook.getFbData: ' + e.message)
+            //return null;
+        });
+
+        request.end();
+
+        if (atts) {
+            // We received an attachment
+
+            // Let's reply with an automatic message
+            FB.fbMessage(
+                sender,
+                "Sorry I can only process text messages for now."
+            );
+        } else if (msg) {
+            // We received a text message
+
+            // Let's forward the message to the Wit.ai Bot Engine
+            // This will run all actions until our bot has nothing left to do
+            wit.runActions(
+                sessionId, // the user's current session
+                msg, // the user's message
+                sessions[sessionId].context, // the user's current session state
+                (error, context) => {
+                    if (error) {
+                        console.log("Oops! Got an error from Wit:", error);
+                    } else {
+                        // Our bot did everything it has to do.
+                        // Now it's waiting for further messages to proceed.
+                        console.log("Waiting for futher messages.");
+
+                        // Based on the session state, you might want to reset the session.
+                        // This depends heavily on the business logic of your bot.
+                        // Example:
+                        // if (context['done']) {
+                        //   delete sessions[sessionId];
+                        // }
+
+                        // Updating the user's current session state
+                        sessions[sessionId].context = context;
+                    }
+                }
+            );
         }
-        else console.log("NO OBJECT WTF");
-    });
-
-    console.log(name);
-
-    if (atts) {
-      // We received an attachment
-
-      // Let's reply with an automatic message
-      FB.fbMessage(
-        sender,
-        "Sorry I can only process text messages for now."
-      );
-    } else if (msg) {
-      // We received a text message
-
-      // Let's forward the message to the Wit.ai Bot Engine
-      // This will run all actions until our bot has nothing left to do
-      wit.runActions(
-        sessionId, // the user's current session
-        msg, // the user's message 
-        sessions[sessionId].context, // the user's current session state
-        (error, context) => {
-          if (error) {
-            console.log("Oops! Got an error from Wit:", error);
-          } else {
-            // Our bot did everything it has to do.
-            // Now it's waiting for further messages to proceed.
-            console.log("Waiting for futher messages.");
-
-            // Based on the session state, you might want to reset the session.
-            // This depends heavily on the business logic of your bot.
-            // Example:
-            // if (context['done']) {
-            //   delete sessions[sessionId];
-            // }
-
-            // Updating the user's current session state
-            sessions[sessionId].context = context;
-          }
-        }
-      );
     }
-  }
-  res.sendStatus(200);
+    res.sendStatus(200);
 });
 
 /*
