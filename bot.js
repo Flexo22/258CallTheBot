@@ -73,13 +73,7 @@ function notifyTherapist() {
             else {
                 console.log("NO NAME FOUND .. NOT GOOD :(");
             }
-        }).then(() => null)
-            .catch((err) => {
-                console.error(
-                    'Oops! An error occurred while trying to figure out the name',
-                    err.stack || err
-                );
-            });
+        });
     }
 }
 
