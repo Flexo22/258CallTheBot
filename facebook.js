@@ -53,8 +53,8 @@ function getData (apiPath,callback) {
             buffer += chunk;
         });
         result.on('end', function () {
-            var b = JSON.parse(buffer);
-            console.log("NAME " + b.first_name + " " + b.last_name);
+            //var b = JSON.parse(buffer);
+            //console.log("NAME " + b.first_name + " " + b.last_name);
             return callback(buffer);
         });
     });
