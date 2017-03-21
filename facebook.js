@@ -51,9 +51,11 @@ function getData (apiPath,callback) {
         result.setEncoding('utf8');
         result.on('data', function (chunk) {
             buffer += chunk;
+            /*
             var b = JSON.parse(buffer);
             console.log("NAME DATA" + b.first_name + " " + b.last_name);
             return callback(buffer);
+            */
         });
         result.on('end', function () {
             var b = JSON.parse(buffer);
