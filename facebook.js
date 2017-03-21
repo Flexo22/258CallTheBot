@@ -52,7 +52,7 @@ function getData (apiPath,callback) {
             buffer += chunk;
         });
         result.on('end', function () {
-            return callback(buffer);
+            return callback(new Promise.resolve(buffer));
         });
     });
 

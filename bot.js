@@ -67,6 +67,7 @@ function notifyTherapist() {
 
         FB.getData(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN, function (buffer) {
             if (buffer) {
+                console.log("before parse: "+buffer);
                 buffer = JSON.parse(buffer);
                 var name = buffer.first_name + " " + buffer.last_name;
                 console.log("FUCKING NAME FUCK YES " + name);
@@ -74,8 +75,6 @@ function notifyTherapist() {
             else {
                 console.log("NO NAME FOUND .. NOT GOOD :(");
             }
-        }).catch((err) =>{
-            console.log('errored');
         });
     }
 }
