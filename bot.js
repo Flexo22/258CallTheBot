@@ -256,6 +256,7 @@ app.get("/webhook", (req, res) => {
 
 let sender = null;
 let sessionId = null;
+let name = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
   // Parsing the Messenger API response
@@ -277,8 +278,11 @@ app.post("/webhook", (req, res) => {
     const msg = messaging.message.text;
     const atts = messaging.message.attachments;
 
-    FB.getData(FB_PAGE_TOKEN,sender+"?fields=first_name,last_name"); //.then(function (res) {
-    console.log(name);
+    FB.getData(FB_PAGE_TOKEN,sender+"?fields=first_name,last_name", function(result) {
+        name = result.first_name+" "+result.last_name;
+        console.log(name);
+    }
+
 
     /*    var name = res.buffer;
         name = name.first_name + " "+ name.last_name;

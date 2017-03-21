@@ -37,7 +37,7 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
-function getData(accessToken, apiPath, callback) {
+function getData(accessToken, apiPath,callback) {
     var options = {
         host: 'graph.facebook.com',
         port: 443,
@@ -54,7 +54,7 @@ function getData(accessToken, apiPath, callback) {
         });
         result.on('end', function(){
             console.log("END IS NEAR.."+buffer);
-            return callback(buffer);
+            callback(buffer);
         });
     });
 
