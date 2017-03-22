@@ -64,7 +64,7 @@ function formatmsg(msg) {
 
 function notifyTherapist() {
     if (sender) {
-
+        return new Promise(function(resolve,reject){
         FB.getData(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN, function (buffer) {
             if (buffer) {
                 buffer = JSON.parse(buffer);
@@ -75,6 +75,8 @@ function notifyTherapist() {
                 console.log("NO NAME FOUND .. NOT GOOD :(");
             }
         });
+        return resolve(sender);
+    });
     }
 }
 
