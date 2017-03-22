@@ -64,7 +64,8 @@ function formatmsg(msg) {
 
 function notifyTherapist() {
     if (sender) {
-        return FB.getData(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN, function (buffer) {
+
+        FB.getData(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN, function (buffer) {
             if (buffer) {
                 buffer = JSON.parse(buffer);
                 var name = buffer.first_name + " " + buffer.last_name;
