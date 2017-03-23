@@ -4,7 +4,6 @@
 // https://developers.facebook.com/docs/messenger-platform/send-api-reference
 const request = require('request');
 const Config = require('./const.js');
-const https = require('https');
 
 const fbReq = request.defaults({
   uri: 'https://graph.facebook.com/me/messages',
@@ -46,6 +45,8 @@ function getData (apiPath,callback) {
     };
 
     var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
+
+    const https = require('https');
     var request = https.get(options, function (result) {
         result.setEncoding('utf8');
         result.on('data', function (chunk) {
@@ -83,5 +84,5 @@ module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
   fbReq: fbReq,
-  getData : getData,
+  getData : getData
 };

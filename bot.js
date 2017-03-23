@@ -229,7 +229,6 @@ app.get("/webhook", (req, res) => {
 });
 
 let sender = null;
-let sessionId = null;
 // The main message handler
 app.post("/webhook", (req, res) => {
     // Parsing the Messenger API response
@@ -243,7 +242,7 @@ app.post("/webhook", (req, res) => {
 
         // We retrieve the user's current session, or create one if it doesn't exist
         // This is needed for our bot to figure out the conversation history
-        sessionId = findOrCreateSession(sender);
+        const sessionId = findOrCreateSession(sender);
 
         // We retrieve the message content
         const msg = messaging.message.text;
