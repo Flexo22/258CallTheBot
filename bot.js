@@ -172,7 +172,7 @@ const actions = {
                     }
                     botAnswer = context.information;
                     return resolve(context);
-                })
+                });
             } else {
               context.information = "searchQuery not found";
             }
