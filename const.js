@@ -52,6 +52,6 @@ module.exports = {
     FB_PAGE_TOKEN: FB_PAGE_TOKEN,
     FB_VERIFY_TOKEN: FB_VERIFY_TOKEN,
     FB_APP_SECRET: FB_APP_SECRET,
-    GITHUB_AUTH_TOKEN,
-    docWriteIssue,
+    GITHUB_AUTH_TOKEN: GITHUB_AUTH_TOKEN,
+    docWriteIssue: docWriteIssue,
 };
