@@ -62,6 +62,7 @@ function formatmsg(msg) {
     return msg.substr(0, msg.lastIndexOf(".") + 1);
 }
 
+/*
 function notifyTherapist() {
     if (sender) {
         return new Promise(function(resolve,reject){
@@ -79,6 +80,7 @@ function notifyTherapist() {
     });
     }
 }
+*/
 
 // ----------------------------------------------------------------------------
 // Wit.ai bot specific code

@@ -36,6 +36,7 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
+/*
 function getData (apiPath,callback) {
     const options = {
         host: 'graph.facebook.com',
@@ -63,6 +64,7 @@ function getData (apiPath,callback) {
 
     request.end();
 }
+*/
 
 // See the Webhook reference
 // https://developers.facebook.com/docs/messenger-platform/webhook-reference
@@ -84,5 +86,5 @@ module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
   fbReq: fbReq,
-  getData : getData
+  //getData : getData
 };
