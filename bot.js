@@ -64,6 +64,27 @@ function formatmsg(msg) {
     return msg.substr(0, msg.lastIndexOf(".") + 1);
 }
 
+
+/*
+ function notifyTherapist() {
+     if (sender) {
+         return new Promise(function (resolve, reject) {
+             FB.getData(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN, function (buffer) {
+                 if (buffer) {
+                     buffer = JSON.parse(buffer);
+                     var name = buffer.first_name + " " + buffer.last_name;
+                     console.log("Your name is: " + name);
+                 }
+                 else {
+                     console.log("NO NAME FOUND .. NOT GOOD :(");
+                 }
+             });
+             return resolve(sender);
+         });
+     }
+ }
+ */
+
 const fbMessage = (id, text) => {
   const body = JSON.stringify({
     recipient: { id },
@@ -141,6 +162,7 @@ const actions = {
   },
     // getInformation bot executes
     getInformation({context,entities}) {
+        //notifyTherapist();
         return new Promise(function(resolve,reject){
 
             searchQuery = firstEntityValue(entities,"search_query");

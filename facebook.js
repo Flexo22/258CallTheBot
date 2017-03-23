@@ -37,6 +37,36 @@ const fbMessage = (recipientId, msg, cb) => {
   });
 };
 
+/*
+function getData (apiPath,callback) {
+    const options = {
+        host: 'graph.facebook.com',
+        port: 443,
+        path: '/v2.8/' + apiPath,
+        method: 'GET'
+    };
+
+    var buffer = ''; //this buffer will be populated with the chunks of the data received from facebook
+
+    const https = require('https');
+    var request = https.get(options, function (result) {
+        result.setEncoding('utf8');
+        result.on('data', function (chunk) {
+            buffer += chunk;
+        });
+        result.on('end', function () {
+            return callback(buffer);
+        });
+    });
+
+    request.on('error', function (e) {
+        console.log('error from facebook.getFbData: ' + e.message)
+    });
+
+    request.end();
+}
+*/
+
 
 // See the Webhook reference
 // https://developers.facebook.com/docs/messenger-platform/webhook-reference
@@ -58,5 +88,6 @@ const getFirstMessagingEntry = (body) => {
 module.exports = {
   getFirstMessagingEntry: getFirstMessagingEntry,
   fbMessage: fbMessage,
-  fbReq: fbReq
+  fbReq: fbReq,
+  getData : getData
 };
