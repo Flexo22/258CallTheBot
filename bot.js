@@ -65,7 +65,7 @@ function formatmsg(msg) {
 }
 
 
-/*
+
  function notifyTherapist() {
      if (sender) {
          return new Promise(function (resolve, reject) {
@@ -83,7 +83,7 @@ function formatmsg(msg) {
          });
      }
  }
- */
+
 
 const fbMessage = (id, text) => {
   const body = JSON.stringify({
@@ -162,7 +162,7 @@ const actions = {
   },
     // getInformation bot executes
     getInformation({context,entities}) {
-        //notifyTherapist();
+        notifyTherapist();
         return new Promise(function(resolve,reject){
 
             searchQuery = firstEntityValue(entities,"search_query");
