@@ -160,7 +160,7 @@ const actions = {
   },
     // getInformation bot executes
     getInformation({context,entities}) {
-        notifyTherapist();
+        //notifyTherapist();
         return new Promise(function(resolve,reject){
 
             searchQuery = firstEntityValue(entities,"search_query");
@@ -176,7 +176,13 @@ const actions = {
                             var pages = body.query.pages;
                             var pageId = Object.keys(pages)[0];
                             var text = pages[pageId].extract;
-                            context.information = formatmsg(text);
+                            var text = formatmsg(text);
+                            if (!text.includes("May refer to:")) {
+                                context.information = text;
+                            }
+                            else {
+                                context.information = "Sorry I didn't get that.";
+                            }
                         }
                         catch (err) {
                             context.information = "Sorry I didn't get that, can you modify your question?";
