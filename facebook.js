@@ -5,19 +5,6 @@
 const request = require('request');
 const Config = require('./const.js');
 
-const fbReq = request.defaults({
-  uri: 'https://graph.facebook.com/me/messages',
-  method: 'POST',
-  json: true,
-  qs: {
-    access_token: Config.FB_PAGE_TOKEN
-  },
-  headers: {
-    'Content-Type': 'application/json'
-  },
-});
-
-
 const fbMessage = (id, text) => {
     const body = JSON.stringify({
         recipient: { id },
