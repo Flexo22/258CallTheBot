@@ -156,13 +156,7 @@ const actions = {
                             var pages = body.query.pages;
                             var pageId = Object.keys(pages)[0];
                             var text = pages[pageId].extract;
-                            var text = formatmsg(text);
-                            if (!text.includes("May refer to:")) {
-                                context.information = text;
-                            }
-                            else {
-                                context.information = "Sorry I didn't get that.";
-                            }
+                            context.information = formatmsg(text);
                         }
                         catch (err) {
                             context.information = "Sorry I didn't get that, can you modify your question?";
