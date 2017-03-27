@@ -83,27 +83,6 @@ function formatmsg(msg) {
      }
  }
 
-
-const fbMessage = (id, text) => {
-  const body = JSON.stringify({
-    recipient: { id },
-    message: { text },
-  });
-  const qs = "access_token=" + encodeURIComponent(FB_PAGE_TOKEN);
-  return fetch("https://graph.facebook.com/me/messages?" + qs, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body,
-  })
-  .then((rsp) => rsp.json())
-  .then((json) => {
-    if (json.error && json.error.message) {
-      throw new Error(json.error.message);
-    }
-    return json;
-  });
-};
-
 // ----------------------------------------------------------------------------
 // Wit.ai bot specific code
 
@@ -143,7 +122,7 @@ const actions = {
       // Yay, we found our recipient!
       // Let's forward our bot response to her.
       // We return a promise to let our bot know when we're done sending
-      return fbMessage(recipientId, text)
+      return FB.fbMessage(recipientId, text)
       .then(() => null)
       .catch((err) => {
         console.error(
@@ -177,7 +156,13 @@ const actions = {
                             var pages = body.query.pages;
                             var pageId = Object.keys(pages)[0];
                             var text = pages[pageId].extract;
-                            context.information = formatmsg(text);
+                            var text = formatmsg(text);
+                            if (!text.includes("May refer to:")) {
+                                context.information = text;
+                            }
+                            else {
+                                context.information = "Sorry I didn't get that.";
+                            }
                         }
                         catch (err) {
                             context.information = "Sorry I didn't get that, can you modify your question?";
