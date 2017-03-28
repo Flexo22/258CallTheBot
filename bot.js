@@ -65,7 +65,7 @@ function formatmsg(msg) {
 }
 
 
- function notifyTherapist() {
+ function getNameOfSender() {
      if (sender) {
          return new Promise(function (resolve, reject) {
              FB.getData(sender + '?fields=first_name,last_name&access_token=' + FB_PAGE_TOKEN, function (buffer) {
@@ -160,7 +160,6 @@ const actions = {
   },
     // getInformation bot executes
     getInformation({context,entities}) {
-        //notifyTherapist();
         return new Promise(function(resolve,reject){
 
             searchQuery = firstEntityValue(entities,"search_query");
@@ -276,7 +275,7 @@ app.post("/webhook", (req, res) => {
       // We received an attachment
 
       // Let's reply with an automatic message
-      FB.fbMessage(
+      fbMessage(
         sender,
         "Sorry I can only process text messages for now."
       );
